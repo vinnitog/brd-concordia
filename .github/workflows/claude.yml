@@ -1,0 +1,87 @@
+name: Claude Code
+
+# Disparado quando o brd-ops abre uma Issue a partir de um card do Trello que
+# voce arrastou para "Pronto para Dev". O agente implementa e abre PR contra
+# develop. Nada e mergeado automaticamente.
+#
+# Este arquivo precisa existir na branch DEFAULT (main): eventos `issues` sao
+# lidos so de la, mesmo que o trabalho aconteca em develop.
+on:
+  issues:
+    # `opened` cobre a Issue que o brd-ops ja cria com a label; `labeled` cobre a
+    # label colada a mao depois. Os dois podem disparar para a mesma Issue, entao
+    # o concurrency abaixo garante um run so - nunca dois PRs para o mesmo card.
+    types: [opened, labeled]
+
+concurrency:
+  group: claude-issue-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  develop:
+    if: contains(github.event.issue.labels.*.name, 'trello-auto')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      # A claude-code-action troca um token OIDC para se autenticar. Sem isto ela
+      # morre logo na largada com "Could not fetch an OIDC token".
+      id-token: write
+      # Deixa o agente ler os logs de CI quando um teste quebra.
+      actions: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      # `npm ci` exige package-lock.json; nem todo projeto BRD tem um ainda.
+      - name: Instalar dependencias
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install --no-audit --no-fund
+          fi
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          # Token da assinatura Pro/Max, gerado com `claude setup-token`.
+          # Evita abrir billing separado na API.
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # Nao adicione flags aqui sem conferir em `claude --help`: a action
+          # repassa isto direto para a CLI, e uma opcao inexistente mata o run em
+          # segundos com a stderr escondida ("SDK execution error").
+          claude_args: >-
+            --model claude-opus-4-8
+            --allowedTools Bash,Read,Edit,Write,Glob,Grep
+          prompt: |
+            Implemente a Issue #${{ github.event.issue.number }} deste repositorio.
+            Ela foi gerada a partir de um card do Trello; o corpo dela e o conteudo
+            do card, nao uma especificacao revisada.
+
+            Regras, nesta ordem:
+
+            1. Leia CLAUDE.md e PROJECT_CONTEXT.md antes de qualquer coisa e siga o
+               workflow obrigatorio descrito la (senior-dev, UI/UX quando mexer em
+               front-end, code review, QA).
+            2. Se o card nao tiver informacao suficiente para implementar com
+               seguranca, NAO invente escopo e NAO abra PR. Comente na Issue
+               listando exatamente o que falta e encerre.
+            3. Rode `npm test` antes de abrir o PR. Se quebrar, conserte; se nao
+               conseguir, comente na Issue o motivo em vez de abrir um PR vermelho.
+            4. Trabalhe num branch novo a partir de develop, no formato
+               `trello/${{ github.event.issue.number }}-<slug-curto>`.
+            5. Abra o PR contra `develop`, nunca contra `main`, e referencie
+               "Closes #${{ github.event.issue.number }}" no corpo.
+            6. Mantenha o escopo restrito ao card. Se notar outros problemas pelo
+               caminho, liste-os no corpo do PR em vez de corrigi-los.
