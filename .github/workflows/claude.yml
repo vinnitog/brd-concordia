@@ -8,10 +8,12 @@ name: Claude Code
 # lidos so de la, mesmo que o trabalho aconteca em develop.
 on:
   issues:
-    # `opened` cobre a Issue que o brd-ops ja cria com a label; `labeled` cobre a
-    # label colada a mao depois. Os dois podem disparar para a mesma Issue, entao
-    # o concurrency abaixo garante um run so - nunca dois PRs para o mesmo card.
-    types: [opened, labeled]
+    # So `labeled`: o brd-ops cria a Issue ja com a label, e o GitHub emite o
+    # evento `labeled` tanto nessa criacao quanto quando a label e colada a mao
+    # depois. Ouvir tambem `opened` disparava um segundo run redundante para a
+    # mesma Issue (cancelado pelo concurrency). `labeled` sozinho cobre os dois
+    # casos, sem run desperdicado.
+    types: [labeled]
 
 concurrency:
   group: claude-issue-${{ github.event.issue.number }}
