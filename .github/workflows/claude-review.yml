@@ -1,0 +1,21 @@
+name: Claude review
+
+# Fase 3 (code review consultivo): delega ao reusable do brd-ci. So em PR contra
+# develop. `opened`/`reopened` apenas - nao em cada push (synchronize) para nao
+# gastar token a cada commit do PR.
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches: [develop]
+
+# O reusable de review pede pull-requests: write (comentar) e id-token. Elevar aqui
+# porque o default do repo e read e o reusable nao pode exceder o caller.
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  review:
+    uses: vinnitog/brd-ci/.github/workflows/claude-review.yml@main
+    secrets: inherit
