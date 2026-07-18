@@ -26,7 +26,11 @@ permissions:
 
 jobs:
   develop:
-    if: contains(github.event.issue.labels.*.name, 'trello-auto')
+    # So a ADICAO da label trello-auto dispara o dev. Checar `github.event.label.name`
+    # (a label recem-adicionada) em vez de "a issue tem trello-auto": senao, quando o
+    # agente aplica `necessita-revisao`, o evento `labeled` re-dispararia e o concurrency
+    # cancelaria o run do proprio agente.
+    if: github.event.label.name == 'trello-auto'
     uses: vinnitog/brd-ci/.github/workflows/claude-develop.yml@main
     with:
       issue_number: ${{ github.event.issue.number }}
