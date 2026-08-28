@@ -9,8 +9,23 @@ function read(file) {
   return fs.readFileSync(path.join(root, file), "utf8");
 }
 
+function readJson(file) {
+  return JSON.parse(read(file).replace(/^\uFEFF/, ""));
+}
+
 test("workflow kit files exist", () => {
-  for (const file of ["AGENTS.md", "CLAUDE.md", "PROJECT_CONTEXT.md", "test.cmd", "package.json", ".gitignore"]) {
+  for (const file of [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "CONTEXT.md",
+    "PROJECT_CONTEXT.md",
+    "SKILLS_MANAGED.md",
+    ".togs/orchestrator.json",
+    "docs/adr/0001-preservar-estado-auditavel-sem-event-sourcing.md",
+    "test.cmd",
+    "package.json",
+    ".gitignore",
+  ]) {
     assert.ok(fs.existsSync(path.join(root, file)), `${file} should exist`);
   }
 });
@@ -49,12 +64,12 @@ test("browser blocked by client policy is documented", () => {
   }
 });
 
-test("project context records stack decision", () => {
+test("project context records the runtime stack as a future hypothesis", () => {
   const context = read("PROJECT_CONTEXT.md");
-  assert.match(context, /## Stack Escolhida/);
-  assert.match(context, /## Motivo Da Stack/);
-  assert.match(context, /## Alternativas Rejeitadas/);
-  assert.match(context, /Revisao Obrigatoria De Stack/);
+  assert.match(context, /## Hipotese De Stack Futura/);
+  assert.match(context, /React \+ Vite \+ Supabase/);
+  assert.match(context, /nao.*capacidade atual/is);
+  assert.doesNotMatch(context, /## Stack Escolhida/);
 });
 
 test("project context preserves the Concordia scope extracted from source documents", () => {
@@ -72,4 +87,54 @@ test("project context preserves the Concordia scope extracted from source docume
     assert.match(context, new RegExp(requirement));
   }
   assert.match(context, /Conteudos exclusivos do BRD Pactum, melhorias do BRD Assistant.*nao fazem parte deste escopo/s);
+});
+
+test("repository metadata describes an independent scaffold node", () => {
+  const orchestrator = readJson(".togs/orchestrator.json");
+  const managedSkills = read("SKILLS_MANAGED.md");
+
+  assert.equal(orchestrator.projectId, "brd-concordia");
+  assert.equal(orchestrator.lifecycle, "scaffold");
+  assert.equal(orchestrator.policy.repositoryOwnsCodeAndGitHistory, true);
+  assert.equal(orchestrator.policy.crossProjectImportsAllowed, false);
+  assert.equal(orchestrator.policy.orchestratorMayCommitOrPush, false);
+
+  for (const skill of orchestrator.skills) {
+    assert.match(managedSkills, new RegExp("\\| `" + skill + "` \\|"));
+  }
+});
+
+test("npm manifest uses a portable package identifier", () => {
+  const manifest = readJson("package.json");
+  assert.equal(manifest.name, "brd-concordia");
+});
+
+test("continuous integration runs repository tests for pull requests", () => {
+  const workflow = read(".github/workflows/test.yml");
+  assert.match(workflow, /pull_request:/);
+  assert.match(workflow, /branches: \[develop, main\]/);
+  assert.match(workflow, /run: npm test/);
+});
+
+test("domain glossary and ADR preserve the agreed language and audit strategy", () => {
+  const glossary = read("CONTEXT.md");
+  const decision = read("docs/adr/0001-preservar-estado-auditavel-sem-event-sourcing.md");
+
+  for (const term of [
+    "Parte",
+    "Debito",
+    "Acordo",
+    "Parcela",
+    "Pagamento",
+    "Prazo",
+    "MemoriaDeCalculo",
+    "ModeloDeDocumento",
+    "DocumentoGerado",
+    "UsuarioBRD",
+  ]) {
+    assert.match(glossary, new RegExp(`\\*\\*${term}\\*\\*`));
+  }
+
+  assert.match(decision, /fatos imutaveis/);
+  assert.match(decision, /nao event sourcing/);
 });
