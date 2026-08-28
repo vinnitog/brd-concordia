@@ -9,6 +9,7 @@ Este arquivo e gerado pelo hub `togs-backoffice`. O caminho local do control pla
 | `domain-modeling` | `mattpocock/skills` | domain, glossary, adr, complex-domain |
 | `diagnosing-bugs` | `mattpocock/skills` | javascript, typescript, bug, performance |
 | `tdd` | `mattpocock/skills` | feature, bug, test |
+| `grill-me` | `mattpocock/skills` | explicit-invocation, requirements, plan, design, decision |
 
 ## Licencas
 
