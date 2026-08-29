@@ -14,21 +14,15 @@ Antes de ler, editar, testar, commitar ou fazer push, confirme que o terminal es
 
 Leia `PROJECT_CONTEXT.md` antes de alterar o projeto. Ele e a fonte versionada de objetivo, stack e decisoes iniciais.
 
-## Stack Inicial
+## Stack Atual E Hipotese Futura
 
 ```text
-React + Vite + Supabase
+Node.js + biblioteca padrao
 ```
 
-Motivo:
+React + Vite + Supabase e somente uma hipotese futura. O repositorio ainda nao possui frontend, autenticacao, banco de dados ou integracao Supabase reais.
 
-O projeto tem interface e sinais de login, multiusuario ou dados persistentes. React organiza telas/estado e Supabase reduz custo inicial de auth e banco.
-
-Alternativas rejeitadas:
-
-HTML/CSS/JS vanilla: pode limitar evolucao com varias telas. Backend customizado: rejeitado no inicio para evitar manutencao antes da necessidade real.
-
-Antes da primeira feature real, valide se a stack continua adequada ao objetivo do app.
+Antes de introduzir runtime ou servico externo, valide a capacidade em `.togs\orchestrator.json`, compare alternativas e registre decisoes dificeis de reverter.
 
 ## Workflow Obrigatorio
 

@@ -14,17 +14,25 @@ Centralizar cadastros de credores, devedores e debitos; negociacao e acompanhame
 
 Advogados e equipe interna do BRD responsaveis por cobranca, negociacao e recuperacao de credito.
 
-## Caracteristicas Informadas
+## Requisitos Futuros Informados
 
-- Interface visual: Sim
-- Login/autenticacao: Sim
-- Banco de dados: Sim
+- Interface visual: Planejada
+- Login/autenticacao: Planejado
+- Banco de dados: Planejado
 - Offline/PWA: Nao
 - Mobile: Nao
-- Dashboard/graficos: Sim
+- Dashboard/graficos: Planejado
 - API propria: Nao
 - Integracoes externas: Nao
-- Multiusuario: Sim
+- Multiusuario: Planejado
+
+## Capacidades Atuais
+
+- Ciclo do projeto: scaffold.
+- Documentacao do dominio e decisoes arquiteturais.
+- Politicas puras de dominio executadas em Node.js, sem dependencias externas.
+- Testes automatizados do scaffold e das politicas.
+- Sem frontend, autenticacao, banco de dados, Supabase ou integracao externa reais.
 
 ## Escopo Funcional Extraido Dos Documentos
 
@@ -44,23 +52,39 @@ Os exemplos de mensagem na secao do Concordia aparecem assinados como "BRD Pactu
 
 Conteudos exclusivos do BRD Pactum, melhorias do BRD Assistant e a agenda generica de salas de reuniao nao fazem parte deste escopo.
 
-## Stack Escolhida
+## Decisoes De Dominio Atuais
+
+- `Parte` e o cadastro juridico canonico; credor e devedor sao papeis assumidos em cada `Debito`.
+- `UsuarioBRD` representa identidade operacional interna e nao se confunde com `Parte`; acesso externo esta fora do scaffold.
+- Cada `Acordo` pertence a um unico `Debito`; um debito preserva acordos sucessivos e possui no maximo um acordo ativo.
+- `Debito`, `Acordo`, `Parcela` e `ProcessoJudicial` possuem ciclos de vida separados.
+- Pagamentos, conferencias, acordos sucessivos e memorias de calculo preservam historico auditavel sem exigir event sourcing.
+- Atualizacao monetaria depende de politica configuravel futura e deve produzir `MemoriaDeCalculo` reproduzivel.
+- `Prazo` pode ser derivado de parcela, acordo ou processo judicial, ou ser manual com responsavel e justificativa.
+- `ModeloDeDocumento` e `DocumentoGerado` sao conceitos distintos; o documento emitido preserva versao e vinculo juridico.
+- A conferencia registra quem lancou e quem conferiu o pagamento, sem segregacao obrigatoria nesta fase.
+
+O vocabulario canonico esta em `CONTEXT.md`. A decisao de rastreabilidade esta em `docs/adr/0001-preservar-estado-auditavel-sem-event-sourcing.md`.
+
+## Hipotese De Stack Futura
 
 ```text
 React + Vite + Supabase
 ```
 
-## Motivo Da Stack
+Essa combinacao e uma hipotese de evolucao, nao uma capacidade atual nem autorizacao para implementar infraestrutura. React pode atender futuras telas com rotas e estado; Supabase somente pode ser avaliado quando existirem requisitos de persistencia, autenticacao e dados pessoais suficientemente definidos.
 
-O projeto tem interface e sinais de login, multiusuario ou dados persistentes. React organiza telas/estado e Supabase reduz custo inicial de auth e banco.
+## Stack Atual Do Scaffold
 
-## Alternativas Rejeitadas
+```text
+Node.js + biblioteca padrao
+```
 
-HTML/CSS/JS vanilla: pode limitar evolucao com varias telas. Backend customizado: rejeitado no inicio para evitar manutencao antes da necessidade real.
+O scaffold usa apenas modulos puros e o test runner nativo do Node.js. Nao ha dependencia de runtime, build ou servico externo.
 
 ## Revisao Obrigatoria De Stack
 
-Antes da primeira feature real, o `senior-dev` deve validar se a stack escolhida ainda faz sentido.
+Antes da primeira feature real de interface, persistencia ou autenticacao, o `senior-dev` deve comparar alternativas e registrar a decisao proporcional ao custo de reversao.
 
 Se houver front-end, `ui-ux-expert` deve validar impacto visual e UX.
 

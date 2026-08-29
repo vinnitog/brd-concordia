@@ -14,23 +14,19 @@ Antes de qualquer leitura, edicao, teste, commit ou push, confirme que o comando
 
 Leia `PROJECT_CONTEXT.md` antes de alterar codigo, testes, docs ou configuracoes.
 
-## Stack Inicial
+## Stack Atual E Hipotese Futura
 
-Stack escolhida:
+Stack real do scaffold:
 
 ```text
-React + Vite + Supabase
+Node.js + biblioteca padrao
 ```
 
-Motivo:
+React + Vite + Supabase e apenas uma hipotese futura registrada em `PROJECT_CONTEXT.md`. Nao existe frontend, autenticacao, banco ou Supabase real neste repositorio.
 
-O projeto tem interface e sinais de login, multiusuario ou dados persistentes. React organiza telas/estado e Supabase reduz custo inicial de auth e banco.
+Antes de introduzir qualquer runtime ou servico externo, confirme a capacidade em `.togs\orchestrator.json`, compare alternativas e registre decisoes dificeis de reverter.
 
-Alternativas rejeitadas:
-
-HTML/CSS/JS vanilla: pode limitar evolucao com varias telas. Backend customizado: rejeitado no inicio para evitar manutencao antes da necessidade real.
-
-Antes da primeira feature real, o `senior-dev` deve confirmar se essa stack ainda faz sentido para o objetivo do projeto.
+O `senior-dev` deve preferir contratos puros e a solucao minima que resolva o requisito comprovado.
 
 ## Fluxo Obrigatorio De Desenvolvimento
 
