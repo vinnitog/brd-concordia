@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 96" role="img" aria-labelledby="title desc">
+  <title id="title">BRD Concordia (reverso)</title>
+  <desc id="desc">Versao reversa para fundos escuros: assinatura em branco com "Concordia" em italico.</desc>
+  <!-- [UI] Reversa: para header/fundos escuros, mantendo contraste WCAG AA -->
+  <rect x="8" y="16" width="64" height="64" rx="14" fill="#FFFFFF"/>
+  <text x="40" y="61" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+        font-size="42" font-style="italic" font-weight="700" fill="#0B2A4A">C</text>
+  <text x="92" y="60" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#FFFFFF">
+    <tspan font-weight="700" letter-spacing="1">BRD</tspan><tspan font-style="italic" font-weight="400" dx="10">Concordia</tspan>
+  </text>
+</svg>
