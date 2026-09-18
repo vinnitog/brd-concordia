@@ -1,7 +1,29 @@
 const ORIGENS_PRAZO = new Set(["parcela", "acordo", "judicial", "manual"]);
+const TIPOS_PARTE = new Set(["PF", "PJ"]);
+const PAPEIS_PARTE = new Set(["credor", "devedor"]);
 
 function temTexto(valor) {
   return typeof valor === "string" && valor.trim().length > 0;
+}
+
+function informado(valor) {
+  if (valor === undefined || valor === null) {
+    return false;
+  }
+
+  if (typeof valor === "string") {
+    return valor.trim().length > 0;
+  }
+
+  if (Array.isArray(valor)) {
+    return valor.length > 0;
+  }
+
+  if (typeof valor === "object") {
+    return Object.keys(valor).length > 0;
+  }
+
+  return true;
 }
 
 function dataCalendarioValida(valor) {
@@ -148,8 +170,77 @@ function validarConferenciaPagamento({
   return erros.length === 0 ? { valida: true } : { valida: false, erros };
 }
 
+// Cadastro unico de Parte com selecao de tipo (PF/PJ). Decisoes dos socios na
+// Issue #9: um unico cadastro com selecao de tipo; credor e devedor sao papeis
+// que a mesma Parte pode assumir simultaneamente ou em momentos distintos;
+// representante legal so faz sentido para PJ; demais dados sao opcionais nesta
+// fase e CPF/CNPJ aceita qualquer entrada (sem validacao de formato).
+function validarCadastroParte({ tipo, papeis, representanteLegal } = {}) {
+  const erros = [];
+
+  if (!temTexto(tipo)) {
+    erros.push("tipo-obrigatorio");
+  } else if (!TIPOS_PARTE.has(tipo)) {
+    erros.push("tipo-invalido");
+  }
+
+  const listaPapeis = Array.isArray(papeis) ? papeis : papeis == null ? [] : [papeis];
+  if (listaPapeis.some((papel) => !PAPEIS_PARTE.has(papel))) {
+    erros.push("papel-invalido");
+  }
+
+  if (tipo === "PF" && informado(representanteLegal)) {
+    erros.push("representante-legal-nao-se-aplica-a-pf");
+  }
+
+  return erros.length === 0 ? { valido: true } : { valido: false, erros };
+}
+
+// Acordos celebrados por cliente. Decisao dos socios na Issue #9: a Parte enxerga
+// todos os acordos em que participa (como credor ou devedor) e o resumo expoe os
+// dados que revelam o dinheiro a entrar: valor do acordo, quantidade e valor das
+// parcelas e seus vencimentos. A forma de visualizacao ficou em aberto pelos socios.
+function resumirAcordosCelebrados({ idParte, acordos = [] } = {}) {
+  const doCliente = acordos.filter(
+    (acordo) =>
+      acordo && (acordo.idCredor === idParte || acordo.idDevedor === idParte),
+  );
+
+  const itens = doCliente.map((acordo) => {
+    const parcelas = Array.isArray(acordo.parcelas) ? acordo.parcelas : [];
+
+    return {
+      idAcordo: acordo.id,
+      valor: typeof acordo.valor === "number" ? acordo.valor : null,
+      quantidadeParcelas: parcelas.length,
+      vencimentos: parcelas.map((parcela) => parcela.vencimento ?? null),
+      valoresParcelas: parcelas.map((parcela) =>
+        typeof parcela.valor === "number" ? parcela.valor : null,
+      ),
+    };
+  });
+
+  const totalPrevisto = itens.reduce(
+    (soma, item) =>
+      soma +
+      item.valoresParcelas
+        .filter((valor) => typeof valor === "number")
+        .reduce((parcial, valor) => parcial + valor, 0),
+    0,
+  );
+
+  return {
+    idParte,
+    quantidadeAcordos: itens.length,
+    itens,
+    totalPrevisto,
+  };
+}
+
 module.exports = {
   decidirAtivacaoAcordo,
   validarPrazo,
   validarConferenciaPagamento,
+  validarCadastroParte,
+  resumirAcordosCelebrados,
 };
