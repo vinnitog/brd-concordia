@@ -63,6 +63,7 @@ Conteudos exclusivos do BRD Pactum, melhorias do BRD Assistant e a agenda generi
 - `Prazo` pode ser derivado de parcela, acordo ou processo judicial, ou ser manual com responsavel e justificativa.
 - `ModeloDeDocumento` e `DocumentoGerado` sao conceitos distintos; o documento emitido preserva versao e vinculo juridico.
 - A conferencia registra quem lancou e quem conferiu o pagamento, sem segregacao obrigatoria nesta fase.
+- A navegacao expoe oito abas (Debitos, Cadastros, Prazos, Documentos, Dashboard, Financeiro, Atualizacao monetaria, IA Concordia); o Dashboard e a aba inicial pos-login. O acesso por aba pode ser restrito por perfil, permissivo por padrao no prototipo (todos veem tudo), com restricao futura prevista para Financeiro. A forma de apresentar a restricao (bloqueio, ocultacao ou desabilitacao visual) sera decidida quando existir front-end.
 
 O vocabulario canonico esta em `CONTEXT.md`. A decisao de rastreabilidade esta em `docs/adr/0001-preservar-estado-auditavel-sem-event-sourcing.md`.
 
