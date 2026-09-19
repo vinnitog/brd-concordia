@@ -35,6 +35,10 @@ test('preview HTTP: serves Concordia without login redirect, with security and n
   assert.equal(response.status, 200);
   assert.equal(response.headers.location, undefined);
   assert.match(response.body.toString('utf8'), /<title>[^<]*BRD Concordia<\/title>/);
+  const favicon = response.body.toString('utf8').match(/<link\b[^>]*\brel="icon"[^>]*>/)?.[0];
+  assert.ok(favicon, 'HTML must link a browser favicon');
+  assert.match(favicon, /\bhref="\/assets\/concordia-favicon\.svg"/);
+  assert.match(favicon, /\btype="image\/svg\+xml"/);
   assert.equal(response.headers['content-type'], 'text/html; charset=utf-8');
   assert.deepEqual(response.body, await readFile(path.join(__dirname, '../public/index.html')));
   assert.equal(response.headers['content-length'], String(response.body.length));
@@ -48,11 +52,12 @@ test('preview HTTP: serves Concordia without login redirect, with security and n
   assert.equal(login.headers.location, undefined);
 });
 
-test('preview HTTP: serves local scripts, styles, font and logo with matching bytes and MIME types', async () => {
+test('preview HTTP: serves local scripts, styles, font, logo and favicon with matching bytes and MIME types', async () => {
   for (const [file, type] of [
     ['app.js', 'text/javascript; charset=utf-8'], ['model.js', 'text/javascript; charset=utf-8'],
     ['data.js', 'text/javascript; charset=utf-8'], ['styles.css', 'text/css; charset=utf-8'],
     ['assets/DMSans-Regular.ttf', 'font/ttf'], ['assets/brd-logo-on-dark.png', 'image/png'],
+    ['assets/concordia-favicon.svg', 'image/svg+xml'],
   ]) {
     const response = await request(`/${file}?version=demo`);
     assert.equal(response.status, 200, file);
@@ -62,7 +67,7 @@ test('preview HTTP: serves local scripts, styles, font and logo with matching by
 });
 
 test('preview HTTP: HEAD preserves GET metadata and sends no content', async () => {
-  for (const url of ['/', '/app.js', '/assets/brd-logo-on-dark.png']) {
+  for (const url of ['/', '/app.js', '/assets/brd-logo-on-dark.png', '/assets/concordia-favicon.svg']) {
     const get = await request(url);
     const head = await request(url, 'HEAD');
     assert.equal(head.status, get.status);

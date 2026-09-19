@@ -149,6 +149,8 @@ A implementação não usa sombras. A profundidade resulta de fundos tonais e bo
 
 Cantos levemente arredondados distinguem badges, controles, navegação e detalhe conforme `rounded`. Tabelas e faixas de resumo usam divisores retos. Ícones SVG têm traço simples, sem preenchimento, geralmente em 20px.
 
+O favicon usa um C branco vetorial sobre um quadrado violeta BRD arredondado. Sua composição própria substitui o logotipo horizontal apenas na aba do navegador, com leitura em 16px e 32px e sem dependência de fontes.
+
 ## Components
 
 ### Buttons
