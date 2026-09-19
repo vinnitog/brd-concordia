@@ -16,7 +16,7 @@ Advogados e equipe interna do BRD responsaveis por cobranca, negociacao e recupe
 
 ## Requisitos Futuros Informados
 
-- Interface visual: Planejada
+- Interface visual: Demonstracao local implementada
 - Login/autenticacao: Planejado
 - Banco de dados: Planejado
 - Offline/PWA: Nao
@@ -28,11 +28,25 @@ Advogados e equipe interna do BRD responsaveis por cobranca, negociacao e recupe
 
 ## Capacidades Atuais
 
-- Ciclo do projeto: scaffold.
+- Ciclo do projeto: scaffold de dominio com demonstracao visual local.
 - Documentacao do dominio e decisoes arquiteturais.
 - Politicas puras de dominio executadas em Node.js, sem dependencias externas.
 - Testes automatizados do scaffold e das politicas.
-- Sem frontend, autenticacao, banco de dados, Supabase ou integracao externa reais.
+- Frontend demonstrativo em HTML/CSS/JavaScript, servido localmente por Node.js.
+- Sem autenticacao, banco de dados, Supabase ou integracao externa reais.
+- Dados ficticios e data-base fixa identificados; sem persistencia ou cadastro de dados pessoais.
+
+## Primeira Interface Local
+
+Solicitada pelo usuario em 2026-09-19, com identidade visual do BRD Assistant e construcao direta em codigo. Inclui visao geral, consulta de debitos, acordos e prazos, filtros e detalhes relacionados. A auditoria usa Impeccable e revisao UI/UX.
+
+Alternativas comparadas: HTML/CSS/JavaScript com servidor Node nativo permite avaliar a interface sem dependencias; React + Vite adicionaria build e dependencias sem necessidade comprovada nesta demonstracao. Foi adotada a primeira opcao. A decisao e reversivel: interface isolada em `public/`, politicas puras preservadas em `src/domain/`. Persistencia e autenticacao continuam fora desta entrega.
+
+Execute `start.cmd` ou `npm.cmd start`; a demonstracao fica em `http://127.0.0.1:4317`. `PORT` permite outra porta. O servidor atende somente arquivos publicos e escuta apenas na interface de loopback. A porta propria evita a origem 4173, na qual o navegador do usuario exibiu um login antigo do BRD Assistant apesar de o servidor responder o HTML do Concordia. Cache de PWA e a causa provavel; a demonstracao nao possui login.
+
+Ativos do BRD Assistant foram copiados como arquivos locais, sem importar codigo nem compartilhar historico Git. A implementacao atual usa DM Sans nos titulos; essa evidencia prevalece sobre o handoff antigo com Gupter.
+
+Esta demonstracao cobre quatro vistas de consulta e nao substitui o contrato de oito abas registrado em `src/domain/navegacao.js`. Os assets e o guia anteriores em `assets/brand/` e `docs/identidade-visual.md` permanecem preservados; para esta interface, a referencia visual escolhida expressamente pelo usuario e o BRD Assistant. O sistema implementado esta descrito em `DESIGN.md`.
 
 ## Escopo Funcional Extraido Dos Documentos
 
@@ -63,6 +77,8 @@ Conteudos exclusivos do BRD Pactum, melhorias do BRD Assistant e a agenda generi
 - `Prazo` pode ser derivado de parcela, acordo ou processo judicial, ou ser manual com responsavel e justificativa.
 - `ModeloDeDocumento` e `DocumentoGerado` sao conceitos distintos; o documento emitido preserva versao e vinculo juridico.
 - A conferencia registra quem lancou e quem conferiu o pagamento, sem segregacao obrigatoria nesta fase.
+- Credor e devedor compartilham um unico cadastro de `Parte` com selecao de tipo (PF/PJ); a mesma Parte pode assumir os dois papeis simultaneamente ou em momentos distintos. Representante legal so se aplica a PJ e pode reaparecer em multiplas PJs. Nesta fase os demais dados sao opcionais e CPF/CNPJ aceita qualquer entrada (Issue #9, decisao dos socios).
+- A navegacao expoe oito abas (Debitos, Cadastros, Prazos, Documentos, Dashboard, Financeiro, Atualizacao monetaria, IA Concordia); o Dashboard e a aba inicial pos-login. O acesso por aba pode ser restrito por perfil, permissivo por padrao no prototipo (todos veem tudo), com restricao futura prevista para Financeiro. A forma de apresentar a restricao (bloqueio, ocultacao ou desabilitacao visual) sera decidida quando existir front-end.
 
 O vocabulario canonico esta em `CONTEXT.md`. A decisao de rastreabilidade esta em `docs/adr/0001-preservar-estado-auditavel-sem-event-sourcing.md`.
 
@@ -80,7 +96,7 @@ Essa combinacao e uma hipotese de evolucao, nao uma capacidade atual nem autoriz
 Node.js + biblioteca padrao
 ```
 
-O scaffold usa apenas modulos puros e o test runner nativo do Node.js. Nao ha dependencia de runtime, build ou servico externo.
+O dominio usa modulos puros e o test runner nativo do Node.js. O frontend demonstrativo usa APIs nativas do navegador e servidor HTTP da biblioteca padrao. Nao ha dependencia externa de runtime, build ou servico.
 
 ## Revisao Obrigatoria De Stack
 

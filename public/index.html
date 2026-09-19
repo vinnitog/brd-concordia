@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B0911">
+  <meta name="description" content="Demonstração local do BRD Concordia: acompanhamento de débitos, acordos e prazos com dados fictícios.">
+  <title>Visão geral · BRD Concordia</title>
+  <link rel="icon" type="image/svg+xml" sizes="any" href="/assets/concordia-favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Área de navegação">
+      <a class="brand" href="#overview" aria-label="BRD Concordia — visão geral">
+        <img src="/assets/brd-logo-on-dark.png" width="110" height="30" alt="BRD">
+        <span>Concordia</span>
+      </a>
+      <p class="sidebar-description">Gestão de créditos</p>
+      <nav aria-label="Navegação principal">
+        <a href="#overview" data-view="overview" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Visão geral</a>
+        <a href="#debts" data-view="debts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h7"/></svg>Débitos</a>
+        <a href="#agreements" data-view="agreements"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM8 9h8M8 14l2 2 6-6"/></svg>Acordos</a>
+        <a href="#deadlines" data-view="deadlines"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 14h3M8 17h6"/></svg>Prazos</a>
+      </nav>
+      <div class="sidebar-footer"><span class="demo-dot" aria-hidden="true"></span><strong>Ambiente demonstrativo</strong><p>Dados fictícios para avaliação.</p></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><span>BRD <span class="topbar-separator" aria-hidden="true">/</span> Recuperação de crédito</span><span class="reference-date">Referência fixa <strong>19 set. 2026</strong></span></header>
+      <main id="main" tabindex="-1">
+        <div class="page-heading"><div><h1 id="page-title" tabindex="-1">Visão geral</h1><p id="page-description">O que precisa da sua atenção, em um só lugar.</p></div><button id="export" class="button secondary" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5"/></svg>Exportar débitos</button></div>
+        <div class="demo-note"><strong>Demonstração</strong><span>Todos os nomes e valores são fictícios. Consulta local, sem gravação de dados.</span></div>
+        <form class="filters" id="filters" role="search" aria-label="Filtrar registros">
+          <div class="field creditor-field"><label for="creditor">Credor</label><select id="creditor" name="creditor"><option value="">Todos os credores</option></select></div>
+          <div class="field search-field"><label for="search">Buscar nos registros</label><div class="search-control"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" name="search" type="search" placeholder="Devedor, credor ou código" autocomplete="off" maxlength="120"></div></div>
+          <button id="clear-filters" class="button text-button" type="button" disabled>Limpar filtros</button>
+        </form>
+        <div id="content"></div>
+        <section id="detail" class="detail" aria-labelledby="detail-title" hidden></section>
+        <p class="page-footnote">Os prazos e saldos consideram a referência fixa de 19/09/2026. Valores sem atualização monetária nesta demonstração.</p>
+        <p id="result-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+        <noscript><p class="empty-state">Ative o JavaScript no navegador para consultar a demonstração e usar os filtros.</p></noscript>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

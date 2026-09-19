@@ -22,7 +22,7 @@ Stack real do scaffold:
 Node.js + biblioteca padrao
 ```
 
-React + Vite + Supabase e apenas uma hipotese futura registrada em `PROJECT_CONTEXT.md`. Nao existe frontend, autenticacao, banco ou Supabase real neste repositorio.
+React + Vite + Supabase e apenas uma hipotese futura registrada em `PROJECT_CONTEXT.md`. Existe uma interface demonstrativa local em HTML/CSS/JavaScript; nao existe autenticacao, banco ou Supabase real neste repositorio.
 
 Antes de introduzir qualquer runtime ou servico externo, confirme a capacidade em `.togs\orchestrator.json`, compare alternativas e registre decisoes dificeis de reverter.
 
