@@ -64,6 +64,7 @@ Conteudos exclusivos do BRD Pactum, melhorias do BRD Assistant e a agenda generi
 - `ModeloDeDocumento` e `DocumentoGerado` sao conceitos distintos; o documento emitido preserva versao e vinculo juridico.
 - A conferencia registra quem lancou e quem conferiu o pagamento, sem segregacao obrigatoria nesta fase.
 - Credor e devedor compartilham um unico cadastro de `Parte` com selecao de tipo (PF/PJ); a mesma Parte pode assumir os dois papeis simultaneamente ou em momentos distintos. Representante legal so se aplica a PJ e pode reaparecer em multiplas PJs. Nesta fase os demais dados sao opcionais e CPF/CNPJ aceita qualquer entrada (Issue #9, decisao dos socios).
+- A navegacao expoe oito abas (Debitos, Cadastros, Prazos, Documentos, Dashboard, Financeiro, Atualizacao monetaria, IA Concordia); o Dashboard e a aba inicial pos-login. O acesso por aba pode ser restrito por perfil, permissivo por padrao no prototipo (todos veem tudo), com restricao futura prevista para Financeiro. A forma de apresentar a restricao (bloqueio, ocultacao ou desabilitacao visual) sera decidida quando existir front-end.
 
 O vocabulario canonico esta em `CONTEXT.md`. A decisao de rastreabilidade esta em `docs/adr/0001-preservar-estado-auditavel-sem-event-sourcing.md`.
 
