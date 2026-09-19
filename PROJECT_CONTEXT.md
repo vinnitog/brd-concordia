@@ -42,7 +42,7 @@ Solicitada pelo usuario em 2026-09-19, com identidade visual do BRD Assistant e 
 
 Alternativas comparadas: HTML/CSS/JavaScript com servidor Node nativo permite avaliar a interface sem dependencias; React + Vite adicionaria build e dependencias sem necessidade comprovada nesta demonstracao. Foi adotada a primeira opcao. A decisao e reversivel: interface isolada em `public/`, politicas puras preservadas em `src/domain/`. Persistencia e autenticacao continuam fora desta entrega.
 
-Execute `start.cmd` ou `npm.cmd start`; a demonstracao fica em `http://127.0.0.1:4173`. `PORT` permite outra porta. O servidor atende somente arquivos publicos e escuta apenas na interface de loopback.
+Execute `start.cmd` ou `npm.cmd start`; a demonstracao fica em `http://127.0.0.1:4317`. `PORT` permite outra porta. O servidor atende somente arquivos publicos e escuta apenas na interface de loopback. A porta propria evita a origem 4173, na qual o navegador do usuario exibiu um login antigo do BRD Assistant apesar de o servidor responder o HTML do Concordia. Cache de PWA e a causa provavel; a demonstracao nao possui login.
 
 Ativos do BRD Assistant foram copiados como arquivos locais, sem importar codigo nem compartilhar historico Git. A implementacao atual usa DM Sans nos titulos; essa evidencia prevalece sobre o handoff antigo com Gupter.
 

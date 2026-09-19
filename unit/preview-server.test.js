@@ -30,9 +30,11 @@ function request(urlPath, method = 'GET') {
   });
 }
 
-test('preview HTTP: serves the exact entry point with security and no-cache headers', async () => {
+test('preview HTTP: serves Concordia without login redirect, with security and no-cache headers', async () => {
   const response = await request('/');
   assert.equal(response.status, 200);
+  assert.equal(response.headers.location, undefined);
+  assert.match(response.body.toString('utf8'), /<title>[^<]*BRD Concordia<\/title>/);
   assert.equal(response.headers['content-type'], 'text/html; charset=utf-8');
   assert.deepEqual(response.body, await readFile(path.join(__dirname, '../public/index.html')));
   assert.equal(response.headers['content-length'], String(response.body.length));
@@ -41,6 +43,9 @@ test('preview HTTP: serves the exact entry point with security and no-cache head
   assert.equal(response.headers['referrer-policy'], 'no-referrer');
   assert.match(response.headers['content-security-policy'], /connect-src 'none'/);
   assert.match(response.headers['content-security-policy'], /frame-ancestors 'none'/);
+  const login = await request('/login');
+  assert.equal(login.status, 404);
+  assert.equal(login.headers.location, undefined);
 });
 
 test('preview HTTP: serves local scripts, styles, font and logo with matching bytes and MIME types', async () => {

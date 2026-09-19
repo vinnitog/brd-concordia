@@ -59,7 +59,7 @@ function createPreviewServer() {
 }
 
 if (require.main === module) {
-  const port = Number(process.env.PORT || 4173);
+  const port = Number(process.env.PORT || 4317);
   if (!Number.isInteger(port) || port < 1 || port > 65535) {
     console.error("PORT deve ser um número inteiro entre 1 e 65535.");
     process.exitCode = 1;

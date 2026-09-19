@@ -59,4 +59,8 @@ Os papeis senior-dev, ui-ux-expert, impeccable finish reviewer, code-reviewer, q
 
 `test.cmd`: 189 testes aprovados, zero falhas ou testes ignorados, incluindo 20 novos testes da demonstracao e a regressao completa do dominio atualizado. Os testes exercitam modelos puros, dados relacionados, filtros, CSV, sintaxe JavaScript e servidor HTTP real em porta efemera. `git diff --check` sem erros.
 
-O servidor de avaliacao respondeu HTTP 200 para HTML, CSS, modulos, fonte e logotipo; escuta em `127.0.0.1:4173`. Os fluxos de interacao real e a apresentacao visual permanecem para avaliacao manual, discriminados em `docs/qa-interface.md`. Resultado da revisao: liberado para avaliar a demonstracao, sem declarar homologacao visual ou uso em producao.
+O servidor de avaliacao respondeu HTTP 200 para HTML, CSS, modulos, fonte e logotipo. A porta padrao atual e `127.0.0.1:4317`. Os fluxos de interacao real e a apresentacao visual permanecem para avaliacao manual, discriminados em `docs/qa-interface.md`. Resultado da revisao: liberado para avaliar a demonstracao, sem declarar homologacao visual ou uso em producao.
+
+## Correcao do endereco de avaliacao
+
+O usuario mostrou o login do BRD Assistant em `127.0.0.1:4173/login`. Na mesma origem, requisicoes HTTP diretas retornaram o HTML do Concordia em `/` e 404 em `/login`; o processo ativo era o servidor desta demonstracao. O Assistant configura VitePWA, tornando um service worker previamente registrado a causa provavel, ainda nao confirmada por inspecao do armazenamento do navegador. O Concordia passou a usar a porta propria 4317 para separar as origens. Nenhum cache, dado ou processo de outro aplicativo foi removido. O usuario confirmou que o novo endereco exibe o Concordia. Essa confirmacao encerra o problema de acesso; nao equivale a homologacao visual completa e os testes HTTP nao reproduzem a interceptacao por service worker.

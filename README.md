@@ -10,7 +10,9 @@ Requer Node.js 22 ou superior. No Windows:
 .\start.cmd
 ```
 
-Abra http://127.0.0.1:4173. Para outra porta, defina `$env:PORT = '4174'` antes de iniciar. Encerre com Ctrl+C no terminal que executa o servidor.
+Abra http://127.0.0.1:4317. Para outra porta, defina `$env:PORT = '4318'` antes de iniciar. Encerre com Ctrl+C no terminal que executa o servidor.
+
+A porta propria evita reutilizar a origem de previews de outros apps. Se o navegador mostrar o login do Assistant em uma porta antiga, abra o endereco acima: esta demonstracao do Concordia nao tem tela de login. Um service worker de outro app pode continuar interceptando uma origem usada anteriormente, mesmo que o servidor tenha mudado.
 
 ## Avaliar
 

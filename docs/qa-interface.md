@@ -51,3 +51,11 @@ Foram adicionados 20 testes com Node nativo: 13 em `unit/preview-model.test.js` 
 A cobertura verifica sintaxe dos módulos, cálculos, busca, vínculos, dados de prazos e CSV, além de requisições HTTP reais contra uma instância isolada em porta efêmera. A06 confirma os dados e as fronteiras temporais; a aplicação do período pelo controle da interface continua entre as verificações de interação.
 
 **Pendentes manuais:** I01, I02, I03, I04 e a avaliação de apresentação/teclado. Não foi criado harness DOM nem usado navegador nesta etapa. A aprovação dos testes não comprova renderização, download pelo navegador, foco real ou anúncios de leitor de tela.
+
+## Correção do endereço local — 19/09/2026
+
+Na etapa `qa-senior`, o impacto foi delimitado à porta padrão 4317 e à documentação de acesso, sem mudança de interface. A regressão HTTP deve verificar que `/` entrega o título BRD Concordia com status 200 e sem cabeçalho Location, enquanto `/login` retorna 404 sem redirecionamento. A suíte usa porta efêmera para não disputar a instância de avaliação.
+
+Na etapa `qa-automate`, essas verificações foram incorporadas ao teste existente de entrada do servidor. O usuário confirmou que o novo endereço na porta 4317 exibe o Concordia. O relato anterior de Assistant em 4173/login é compatível com cache/service worker antigo, mas essa causa não foi comprovada. Requisições HTTP diretas não executam nem inspecionam service workers do navegador; a confirmação do usuário valida o acesso corrigido, sem substituir os casos manuais I01–I04 e de apresentação.
+
+Após a correção, `test.cmd` passou novamente com **189 testes, zero falhas e zero ignorados**. Log local: `.tmp/qa-port-4317-tests.log` (não versionado). Nenhum navegador foi utilizado nesta verificação.
