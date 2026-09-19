@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-19T20:10:04Z",
+  "title": "Design System: BRD Concordia",
+  "extensions": {
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Título de página",
+        "purpose": "Título principal; reduz para 1.75rem até 850px."
+      },
+      "title": {
+        "displayName": "Título de seção",
+        "purpose": "Seções operacionais; o título do detalhe tem tamanho próprio."
+      },
+      "body": {
+        "displayName": "Conteúdo compacto",
+        "purpose": "Tabelas e conteúdo operacional; não é o tamanho raiz."
+      },
+      "label": {
+        "displayName": "Rótulos e metadados",
+        "purpose": "Labels, cabeçalhos de tabela e metadados."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "control-colors",
+        "value": "background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out",
+        "purpose": "Somente sob prefers-reduced-motion: no-preference."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-min",
+        "value": "1600px"
+      },
+      {
+        "name": "compact-desktop-max",
+        "value": "1199px"
+      },
+      {
+        "name": "horizontal-navigation-max",
+        "value": "850px"
+      },
+      {
+        "name": "stacked-fields-max",
+        "value": "560px"
+      },
+      {
+        "name": "single-summary-max",
+        "value": "360px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botão de contorno",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Ação discreta de exportar; mínimo de 44px.",
+      "html": "<button class=\"ds-button-outline\" type=\"button\">Exportar débitos</button>",
+      "css": ".ds-button-outline{font-family:'DM Sans',system-ui,sans-serif;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 15px;border:1px solid var(--line-strong,#776b86);border-radius:6px;background:transparent;color:var(--ink,#f5f2fa);font-size:.8125rem;font-weight:500;cursor:pointer}.ds-button-outline:hover:not(:disabled){background:var(--hover,#211a2e);border-color:#9f8fb2;}.ds-button-outline:active:not(:disabled){background:#30233f}.ds-button-outline:disabled{cursor:not-allowed;color:#a69ab6;opacity:.65}.ds-button-outline:focus-visible{outline:2px solid var(--brand-text,#c9a5fe);outline-offset:4px}@media(prefers-reduced-motion:no-preference){.ds-button-outline{transition:background-color 160ms ease-out,border-color 160ms ease-out,color 160ms ease-out}}"
+    },
+    {
+      "name": "Botão textual",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Ação secundária para limpar filtros.",
+      "html": "<button class=\"ds-button-text\" type=\"button\">Limpar filtros</button>",
+      "css": ".ds-button-text{font-family:'DM Sans',system-ui,sans-serif;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 15px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--brand-text,#c9a5fe);font-size:.8125rem;font-weight:500;cursor:pointer}.ds-button-text:hover:not(:disabled){background:var(--hover,#211a2e);}.ds-button-text:active:not(:disabled){background:#30233f}.ds-button-text:disabled{cursor:not-allowed;color:#a69ab6;opacity:.65}.ds-button-text:focus-visible{outline:2px solid var(--brand-text,#c9a5fe);outline-offset:4px}@media(prefers-reduced-motion:no-preference){.ds-button-text{transition:background-color 160ms ease-out,border-color 160ms ease-out,color 160ms ease-out}}"
+    },
+    {
+      "name": "Campo de busca",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Label visível, ícone e foco externo.",
+      "html": "<label class=\"ds-field\">Buscar nos registros<span class=\"ds-search\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 5 5\"/></svg><input class=\"ds-input\" type=\"search\" placeholder=\"Devedor, credor ou código\"></span></label>",
+      "css": ".ds-field{font-family:'DM Sans',system-ui,sans-serif;display:grid;gap:7px;color:var(--muted,#b8b0c7);font-size:.75rem;font-weight:500}.ds-search{position:relative}.ds-search svg{position:absolute;top:13px;left:12px;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;pointer-events:none}.ds-input{font-family:'DM Sans',system-ui,sans-serif;width:100%;min-height:44px;padding:10px 12px 10px 39px;border:1px solid var(--line-strong,#776b86);border-radius:6px;background:var(--raised,#181320);color:var(--ink,#f5f2fa);font-size:.8125rem;caret-color:var(--brand-text,#c9a5fe)}.ds-input::placeholder{color:var(--muted,#b8b0c7);opacity:1}.ds-input:hover{border-color:#9f8fb2}.ds-input:focus-visible{outline:2px solid var(--brand-text,#c9a5fe);outline-offset:4px}@media(max-width:560px){.ds-input{font-size:1rem}}"
+    },
+    {
+      "name": "Navegação",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Link ativo violeta com aria-current; a organização responsiva é feita pelo shell.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Exemplo de navegação\"><a class=\"ds-nav-link\" href=\"#overview\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/></svg>Visão geral</a><a class=\"ds-nav-link\" href=\"#debts\">Débitos</a></nav>",
+      "css": ".ds-nav{display:grid;gap:7px}.ds-nav-link{font-family:'DM Sans',system-ui,sans-serif;display:flex;align-items:center;gap:13px;min-height:48px;padding:10px 16px;border-radius:7px;text-decoration:none;color:var(--muted,#b8b0c7);font-size:.875rem;font-weight:500}.ds-nav-link:hover{background:var(--raised,#181320);color:var(--ink,#f5f2fa)}.ds-nav-link[aria-current='page']{background:#281a3e;color:#e4d2ff}.ds-nav-link svg{width:20px;height:20px;fill:none;stroke:var(--brand-text,#c9a5fe);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.ds-nav-link:focus-visible{outline:2px solid var(--brand-text,#c9a5fe);outline-offset:4px}"
+    },
+    {
+      "name": "Estado de registro",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Indicadores estáticos com texto e cores semânticas.",
+      "html": "<span class=\"ds-badge ds-danger\">Em atraso</span> <span class=\"ds-badge ds-warning\">Vence hoje</span> <span class=\"ds-badge ds-success\">Quitado</span>",
+      "css": ".ds-badge{font-family:'DM Sans',system-ui,sans-serif;display:inline-flex;align-items:center;min-height:26px;padding:3px 8px;border-radius:4px;font-size:.75rem;white-space:nowrap;background:#211b2d;color:#ddd5e7}.ds-danger{background:#311d26;color:var(--danger,#fca5a5)}.ds-warning{background:#30291c;color:var(--warning,#fde68a)}.ds-success{background:#152c29;color:var(--success,#a7f3d0)}"
+    },
+    {
+      "name": "Painel de detalhe",
+      "kind": "card",
+      "refersTo": "detail",
+      "description": "Container inline; o exemplo demonstra somente sua aparência.",
+      "html": "<section class=\"ds-detail\"><span class=\"ds-detail-code\">DEB-001</span><h2 class=\"ds-detail-title\">Detalhe do débito</h2><p class=\"ds-detail-note\">Dados fictícios para avaliação.</p></section>",
+      "css": ".ds-detail{font-family:'DM Sans',system-ui,sans-serif;padding:26px;background:var(--panel,#110e1a);color:var(--ink,#f5f2fa);border:1px solid var(--line-strong,#776b86);border-radius:8px}.ds-detail-code{font-size:.75rem;color:var(--brand-text,#c9a5fe)}.ds-detail-title{margin:0;font-size:1.5rem;font-weight:700;line-height:1.4;letter-spacing:-.01em;overflow-wrap:anywhere}.ds-detail-note{font-size:.8125rem;color:var(--muted,#b8b0c7)}@media(max-width:560px){.ds-detail{padding:19px 15px}.ds-detail-title{font-size:1.25rem}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Identidade BRD",
+    "overview": "Superfícies escuras com subtom violeta, logotipo institucional e DM Sans preservam a identidade do BRD Assistant escolhida pelo usuário. A interface usa hierarquia tipográfica, divisores e ações discretas para organizar informação jurídica densa.\n\nEste registro descreve a implementação em `public/styles.css` e `public/index.html`, extraída estaticamente em 19/09/2026. Não representa validação visual em navegador. Medidas no frontmatter são extrações do CSS; não existe um gerador de tokens conectado ao código.\n\nPara esta demonstração, a escolha explícita da identidade atual do Assistant prevalece sobre a referência anterior navy/serifada em `docs/identidade-visual.md`. O guia anterior e os SVGs de `assets/brand` permanecem preservados; este documento não redefine suas aplicações de marca. As quatro vistas implementadas são um recorte para avaliação, não substituem a navegação canônica futura de oito abas registrada no contexto do projeto.",
+    "keyCharacteristics": [
+      "Superfícies escuras com separação tonal e bordas.",
+      "DM Sans local, com títulos em negrito.",
+      "Ações textuais violetas e estados acompanhados de rótulos.",
+      "Tabelas legíveis, números tabulares e detalhes no fluxo da página."
+    ],
+    "rules": [],
+    "dos": [
+      "**Do** preservar o logotipo institucional e as fontes locais DM Sans.",
+      "**Do** manter foco visível, labels de campos e texto nos estados.",
+      "**Do** manter valores tabulares e rolagem horizontal restrita às tabelas."
+    ],
+    "donts": [
+      "**Don't** substituir DM Sans dos títulos por Gupter com base no handoff antigo.",
+      "**Don't** comunicar o estado de um registro apenas pela cor.",
+      "**Don't** remover a identificação de dados fictícios desta demonstração."
+    ]
+  }
+}

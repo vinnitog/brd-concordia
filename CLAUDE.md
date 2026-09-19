@@ -20,7 +20,7 @@ Leia `PROJECT_CONTEXT.md` antes de alterar o projeto. Ele e a fonte versionada d
 Node.js + biblioteca padrao
 ```
 
-React + Vite + Supabase e somente uma hipotese futura. O repositorio ainda nao possui frontend, autenticacao, banco de dados ou integracao Supabase reais.
+React + Vite + Supabase e somente uma hipotese futura. O repositorio possui uma interface demonstrativa local em HTML/CSS/JavaScript, sem autenticacao, banco de dados ou integracao Supabase reais.
 
 Antes de introduzir runtime ou servico externo, valide a capacidade em `.togs\orchestrator.json`, compare alternativas e registre decisoes dificeis de reverter.
 
