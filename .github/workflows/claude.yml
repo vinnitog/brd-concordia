@@ -1,4 +1,4 @@
-name: Claude Code
+name: BRD Development
 
 # Fase 1 (implementacao): delega ao workflow reutilizavel do brd-ci. Este arquivo
 # precisa existir na branch DEFAULT (main): eventos `issues` sao lidos so de la.
@@ -34,4 +34,5 @@ jobs:
     uses: vinnitog/brd-ci/.github/workflows/claude-develop.yml@main
     with:
       issue_number: ${{ github.event.issue.number }}
+      provider: openai
     secrets: inherit
