@@ -33,8 +33,15 @@ Advogados e equipe interna do BRD responsaveis por cobranca, negociacao e recupe
 - Politicas puras de dominio executadas em Node.js, sem dependencias externas.
 - Testes automatizados do scaffold e das politicas.
 - Frontend demonstrativo em HTML/CSS/JavaScript, servido localmente por Node.js.
+- Hospedagem estatica da demonstracao no GitHub Pages, autorizada pelo usuario em 2026-09-24.
 - Sem autenticacao, banco de dados, Supabase ou integracao externa reais.
 - Dados ficticios e data-base fixa identificados; sem persistencia ou cadastro de dados pessoais.
+
+## Publicacao Da Demonstracao
+
+O usuario autorizou tornar o repositorio publico e publicar a interface no GitHub Pages em 2026-09-24. URL: https://vinnitog.github.io/brd-concordia/.
+
+Foi escolhida a publicacao de `public/` por GitHub Actions, com testes antes do deploy e origem em `main`. Publicar por branch exigiria mover ou duplicar os arquivos para a raiz ou `docs/`; hospedar o servidor Node adicionaria infraestrutura sem necessidade. Esta configuracao e reversivel, nao adiciona runtime nem altera as capacidades de autenticacao ou persistencia. O servidor local continua disponivel; seus headers HTTP sao exclusivos da execucao local, pois a hospedagem publica e gerenciada pelo Pages.
 
 ## Primeira Interface Local
 
