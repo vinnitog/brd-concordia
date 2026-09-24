@@ -37,7 +37,7 @@ test('preview HTTP: serves Concordia without login redirect, with security and n
   assert.match(response.body.toString('utf8'), /<title>[^<]*BRD Concordia<\/title>/);
   const favicon = response.body.toString('utf8').match(/<link\b[^>]*\brel="icon"[^>]*>/)?.[0];
   assert.ok(favicon, 'HTML must link a browser favicon');
-  assert.match(favicon, /\bhref="\/assets\/concordia-favicon\.svg"/);
+  assert.match(favicon, /\bhref="\.\/assets\/concordia-favicon\.svg"/);
   assert.match(favicon, /\btype="image\/svg\+xml"/);
   assert.equal(response.headers['content-type'], 'text/html; charset=utf-8');
   assert.deepEqual(response.body, await readFile(path.join(__dirname, '../public/index.html')));
