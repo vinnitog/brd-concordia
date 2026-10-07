@@ -12,17 +12,16 @@ on:
     types: [labeled]
 
 concurrency:
-  group: claude-issue-${{ github.event.issue.number }}
+  group: brd-issue-${{ github.event.issue.number }}
   cancel-in-progress: false
 
-# O reusable pede write (contents, issues, pull-requests) + id-token. Ao chamar um
+# O reusable pede write (contents, issues, pull-requests). Ao chamar um
 # reusable, as permissoes dele nao podem exceder as do caller, e o default do repo e
 # `read` - sem elevar aqui, o run falha no startup. Elevamos ao que o reusable precisa.
 permissions:
   contents: write
   pull-requests: write
   issues: write
-  id-token: write
   actions: read
 
 jobs:
@@ -32,8 +31,9 @@ jobs:
     # agente aplica `necessita-revisao`, o evento `labeled` re-dispararia e o concurrency
     # cancelaria o run do proprio agente.
     if: github.event.label.name == 'trello-auto'
-    uses: vinnitog/brd-ci/.github/workflows/claude-develop.yml@main
+    uses: vinnitog/brd-ci/.github/workflows/develop.yml@main
     with:
       issue_number: ${{ github.event.issue.number }}
       provider: openai
-    secrets: inherit
+    secrets:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

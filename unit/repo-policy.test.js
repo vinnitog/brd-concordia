@@ -16,7 +16,6 @@ function readJson(file) {
 test("workflow kit files exist", () => {
   for (const file of [
     "AGENTS.md",
-    "CLAUDE.md",
     "CONTEXT.md",
     "PROJECT_CONTEXT.md",
     "SKILLS_MANAGED.md",
@@ -30,10 +29,9 @@ test("workflow kit files exist", () => {
   }
 });
 
-test("codex and claude share the mandatory workflow", () => {
+test("agent instructions define the mandatory workflow", () => {
   const agents = read("AGENTS.md");
-  const claude = read("CLAUDE.md");
-  for (const content of [agents, claude]) {
+  for (const content of [agents]) {
     const order = ["senior-dev", "ui-ux-expert", "code-reviewer", "qa-senior", "qa-automate"];
     let lastIndex = -1;
     for (const step of order) {
@@ -48,15 +46,12 @@ test("codex and claude share the mandatory workflow", () => {
 
 test("frontend work requires ui ux review", () => {
   const agents = read("AGENTS.md");
-  const claude = read("CLAUDE.md");
   assert.match(agents, /qualquer ajuste de front-end deve acionar `ui-ux-expert`/);
-  assert.match(claude, /qualquer mudanca de front-end deve passar por avaliacao UI\/UX/);
 });
 
 test("browser blocked by client policy is documented", () => {
   const agents = read("AGENTS.md");
-  const claude = read("CLAUDE.md");
-  for (const content of [agents, claude]) {
+  for (const content of [agents]) {
     assert.match(content, /ERR_BLOCKED_BY_CLIENT/);
     assert.match(content, /file:\/\//);
     assert.match(content, /localhost/);
