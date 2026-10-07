@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           repository: vinnitog/techtogs-utilities
-          ref: a212944d88084a4d3ba2f59513ddd5cc250655f7
+          ref: 6638a5a9d0393985d4b1b815e9c1b29b8dfd29d8
           ssh-key: ${{ secrets.TECHTOGS_UTILITIES_SSH_KEY }}
           persist-credentials: false
           path: ._techtogs_action
