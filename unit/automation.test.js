@@ -13,11 +13,12 @@ test('development automation uses the shared OpenAI contract and queues issue ru
   assert.match(workflow, /cancel-in-progress: false/);
 });
 
-test('automation passes only the OpenAI credential to shared development and review', () => {
+test('automation scopes Trello credentials to development, not review', () => {
   for (const file of ['develop.yml', 'review.yml']) {
     const workflow = read(file);
     const references = [...workflow.matchAll(/secrets\.([A-Z_]+)/g)].map(match => match[1]);
-    assert.deepEqual(references, ['OPENAI_API_KEY'], file);
+    const expected = file === 'develop.yml' ? ['OPENAI_API_KEY', 'TRELLO_API_KEY', 'TRELLO_TOKEN'] : ['OPENAI_API_KEY'];
+    assert.deepEqual(references, expected, file);
     assert.doesNotMatch(workflow, /secrets: inherit|id-token:/, file);
   }
   assert.match(read('review.yml'), /uses: vinnitog\/brd-ci\/\.github\/workflows\/review\.yml@main/);
