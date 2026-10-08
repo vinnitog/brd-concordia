@@ -29,6 +29,36 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Ler versao das skills compartilhadas
+        id: utilities
+        if: ${{ hashFiles('.techtogs-utilities.json') != '' && (!github.event.pull_request || github.event.pull_request.head.repo.full_name == github.repository) && github.event_name != 'pull_request_target' && github.event_name != 'workflow_run' }}
+        shell: bash
+        env:
+          PROJECT_PATH: ${{ github.workspace }}
+          HAS_SSH_KEY: ${{ secrets.TECHTOGS_UTILITIES_SSH_KEY != '' }}
+        run: |
+          node -e 'const fs=require("fs"); const m=JSON.parse(fs.readFileSync(process.env.PROJECT_PATH+"/.techtogs-utilities.json","utf8")); if(!/^[a-f0-9]{40}$/.test(m.libraryCommit)) throw Error("Invalid utilities commit"); if(process.env.HAS_SSH_KEY!=="true" && !process.env.TECHTOGS_UTILITIES_PATH) throw Error("Configure TECHTOGS_UTILITIES_SSH_KEY with a read-only utilities deploy key"); fs.appendFileSync(process.env.GITHUB_OUTPUT,"ref="+m.libraryCommit+"\n");'
+      - name: Baixar skills privadas
+        if: ${{ steps.utilities.outputs.ref != '' }}
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: vinnitog/techtogs-utilities
+          ref: ${{ steps.utilities.outputs.ref }}
+          ssh-key: ${{ secrets.TECHTOGS_UTILITIES_SSH_KEY }}
+          path: ._techtogs_utilities_ci
+          persist-credentials: false
+      - name: Preparar skills compartilhadas
+        if: ${{ steps.utilities.outputs.ref != '' }}
+        shell: bash
+        env:
+          PROJECT_PATH: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          library="$(mktemp -d "$RUNNER_TEMP/techtogs-utilities.XXXXXX")/repository"
+          mv "$GITHUB_WORKSPACE/._techtogs_utilities_ci" "$library"
+          node "$library/scripts/utilities.mjs" install --project "$PROJECT_PATH"
+          node "$library/scripts/utilities.mjs" verify --project "$PROJECT_PATH"
+          echo "TECHTOGS_UTILITIES_PATH=$library" >> "$GITHUB_ENV"
       - name: Run regression tests
         run: npm test
       - uses: actions/configure-pages@v5

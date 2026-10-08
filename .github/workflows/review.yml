@@ -18,4 +18,5 @@ jobs:
   review:
     uses: vinnitog/brd-ci/.github/workflows/review.yml@main
     secrets:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      TECHTOGS_UTILITIES_SSH_KEY: ${{ secrets.TECHTOGS_UTILITIES_SSH_KEY }}

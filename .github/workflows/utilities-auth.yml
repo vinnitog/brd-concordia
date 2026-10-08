@@ -1,0 +1,39 @@
+name: Validate private utilities access
+on:
+  push:
+    branches: [ci/techtogs-private-auth-20261007, ci/techtogs-private-auth-current-20261007, develop, main]
+    paths: ['.github/workflows/**', '.techtogs-utilities.json', 'scripts/bootstrap-utilities.ps1']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  private-utilities:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Baixar implementacao da action privada
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: vinnitog/techtogs-utilities
+          ref: 6638a5a9d0393985d4b1b815e9c1b29b8dfd29d8
+          ssh-key: ${{ secrets.TECHTOGS_UTILITIES_SSH_KEY }}
+          persist-credentials: false
+          path: ._techtogs_action
+      - name: Preparar consumidor isolado
+        id: fixture
+        run: node ._techtogs_action/scripts/ci-auth-smoke.mjs prepare 547b07aa1c645f8f7517c908b330305242c350fb
+      - name: Instalar skills e agents privados
+        uses: ./._techtogs_action
+        with:
+          ssh-key: ${{ secrets.TECHTOGS_UTILITIES_SSH_KEY }}
+          project-path: ${{ steps.fixture.outputs.project }}
+      - name: Verificar commit, credenciais e reversao
+        env:
+          SMOKE_PROJECT: ${{ steps.fixture.outputs.project }}
+        run: node ._techtogs_action/scripts/ci-auth-smoke.mjs verify
