@@ -1,7 +1,8 @@
 name: Validate private utilities access
 on:
   push:
-    branches: [ci/techtogs-private-auth-20261007]
+    branches: [ci/techtogs-private-auth-20261007, ci/techtogs-private-auth-current-20261007, develop, main]
+    paths: ['.github/workflows/**', '.techtogs-utilities.json', 'scripts/bootstrap-utilities.ps1']
   workflow_dispatch:
 permissions:
   contents: read
