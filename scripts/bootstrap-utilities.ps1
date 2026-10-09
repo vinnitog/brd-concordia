@@ -13,9 +13,13 @@ if ($consumerManifest.repository -ne 'git@github.com:vinnitog/techtogs-utilities
     throw 'Repositorio ou commit fixado de utilities invalido no manifesto.'
 }
 if (-not $UtilitiesPath) { $UtilitiesPath = $env:TECHTOGS_UTILITIES_PATH }
-if (-not $UtilitiesPath) { $UtilitiesPath = Join-Path (Split-Path -Parent $projectRoot) 'techtogs-utilities' }
+if (-not $UtilitiesPath) {
+    if ($consumerManifest.libraryCommit -notmatch '^[a-f0-9]{40}$') { throw 'Pin utilities invalido.' }
+    $versionFolder = 'techtogs-utilities-' + $consumerManifest.libraryCommit.Substring(0, 12)
+    $UtilitiesPath = Join-Path (Split-Path -Parent $projectRoot) $versionFolder
+}
 if (-not (Test-Path -LiteralPath (Join-Path $UtilitiesPath 'catalog.lock.json'))) {
-    throw 'Clone techtogs-utilities ao lado deste projeto ou informe -UtilitiesPath / TECHTOGS_UTILITIES_PATH. Consulte SKILLS_SHARED.md.'
+    throw 'Clone a versao fixada de techtogs-utilities ao lado deste projeto ou informe -UtilitiesPath / TECHTOGS_UTILITIES_PATH. Consulte SKILLS_SHARED.md.'
 }
 $UtilitiesPath = (Resolve-Path -LiteralPath $UtilitiesPath).Path
 $actualCommit = & git -C $UtilitiesPath rev-parse HEAD
