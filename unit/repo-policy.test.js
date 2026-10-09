@@ -19,7 +19,8 @@ test("workflow kit files exist", () => {
     "CONTEXT.md",
     "PROJECT_CONTEXT.md",
     "SKILLS_MANAGED.md",
-    ".togs/orchestrator.json",
+    ".techtogs-utilities.json",
+    "SKILLS_SHARED.md",
     "docs/adr/0001-preservar-estado-auditavel-sem-event-sourcing.md",
     "test.cmd",
     "package.json",
@@ -84,18 +85,36 @@ test("project context preserves the Concordia scope extracted from source docume
   assert.match(context, /Conteudos exclusivos do BRD Pactum, melhorias do BRD Assistant.*nao fazem parte deste escopo/s);
 });
 
-test("repository metadata describes an independent scaffold node", () => {
-  const orchestrator = readJson(".togs/orchestrator.json");
-  const managedSkills = read("SKILLS_MANAGED.md");
+test("shared skills preserve scaffold capabilities without activating planned services", () => {
+  const manifest = readJson(".techtogs-utilities.json");
+  const capabilities = readJson("docs/agent-rules/capabilities.json");
+  assert.equal(manifest.projectId, "brd-concordia");
+  assert.equal(capabilities.projectId, "brd-concordia");
+  assert.ok(capabilities.capabilities.includes("planned-supabase"));
+  assert.equal(manifest.skills.supabase, undefined);
+  assert.equal(manifest.skills["supabase-postgres-best-practices"], undefined);
+  for (const skill of ["senior-dev", "tdd", "code-reviewer", "qa-senior", "qa-automate"]) {
+    assert.deepEqual(manifest.bindings[`.agents/skills/${skill}`]?.path, manifest.skills[skill]?.path);
+    assert.match(manifest.skills[skill]?.sha256 ?? "", /^[a-f0-9]{64}$/);
+  }
+});
 
-  assert.equal(orchestrator.projectId, "brd-concordia");
-  assert.equal(orchestrator.lifecycle, "scaffold");
-  assert.equal(orchestrator.policy.repositoryOwnsCodeAndGitHistory, true);
-  assert.equal(orchestrator.policy.crossProjectImportsAllowed, false);
-  assert.equal(orchestrator.policy.orchestratorMayCommitOrPush, false);
-
-  for (const skill of orchestrator.skills) {
-    assert.match(managedSkills, new RegExp("\\| `" + skill + "` \\|"));
+test("shared skills manifest pins portable bindings without requiring private files for app tests", () => {
+  const manifest = readJson(".techtogs-utilities.json");
+  assert.equal(manifest.repository, "git@github.com:vinnitog/techtogs-utilities.git");
+  assert.match(manifest.libraryCommit, /^[a-f0-9]{40}$/);
+  assert.deepEqual(manifest.profiles, ["core", "planning", "javascript", "product"]);
+  assert.equal(Object.keys(manifest.bindings).length, Object.keys(manifest.skills).length);
+  for (const [name, skill] of Object.entries(manifest.skills)) {
+    assert.equal(skill.path, `skills/${name}`);
+    assert.match(skill.sha256, /^[a-f0-9]{64}$/);
+    const binding = manifest.bindings[`.agents/skills/${name}`];
+    assert.equal(binding?.path, skill.path);
+    assert.equal(binding?.sha256, skill.sha256);
+  }
+  for (const rule of manifest.projectRules) {
+    assert.ok(rule.startsWith("docs/agent-rules/"));
+    assert.ok(fs.existsSync(path.join(root, rule)));
   }
 });
 

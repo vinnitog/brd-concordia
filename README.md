@@ -29,7 +29,7 @@ A porta propria evita reutilizar a origem de previews de outros apps. Se o naveg
 - Abra um debito para examinar o acordo e as parcelas relacionadas.
 - Experimente uma busca sem resultados e limpe os filtros.
 
-A demonstracao nao autentica usuarios, nao salva alteracoes e nao realiza cobrancas. Nao insira dados pessoais reais. Nenhuma dependencia externa precisa ser instalada.
+A demonstracao nao autentica usuarios, nao salva alteracoes e nao realiza cobrancas. Nao insira dados pessoais reais. Executar o aplicativo e os testes de modelo/HTTP nao exige dependencias externas.
 
 ## Validar
 
@@ -39,3 +39,21 @@ git diff --check
 ```
 
 Consulte `PROJECT_CONTEXT.md` para escopo e limites; `DESIGN.md` descreve o sistema visual implementado.
+
+Os testes de navegador usam Playwright apenas em desenvolvimento:
+
+```powershell
+npm.cmd ci
+npx.cmd playwright install chromium
+npm.cmd run test:browser
+```
+
+Para usar o Edge ja instalado no Windows, substitua a instalacao do Chromium por
+`$env:BROWSER_CHANNEL = 'msedge'`. Remova essa variavel para voltar ao Chromium.
+A suite usa servidor efemero, dados ficticios e contextos isolados. Modelo, HTTP,
+navegador e limites de acessibilidade estao separados em `docs/qa-interface.md`.
+O CI executa o navegador em um job sem acesso a credenciais privadas.
+
+Para agentes, consulte `SKILLS_SHARED.md`: a biblioteca privada e opcional para
+executar o aplicativo e seus testes, mas sua integridade e verificada separadamente
+nos jobs confiaveis. Nao copie a biblioteca para dentro deste repositorio.

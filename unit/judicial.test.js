@@ -97,6 +97,22 @@ test("uma suspensao so pode vir depois da distribuicao", () => {
   );
 });
 
+test("datas judiciais nao textuais retornam erro de validacao sem lancar excecao", () => {
+  for (const valor of [["2026-03-10"], { toString: () => "2026-03-10" }, 20260310]) {
+    assert.deepEqual(validarProcessoJudicial({ dataDistribuicao: valor, dataSuspensao: valor }), {
+      valido: false,
+      erros: ["data-distribuicao-invalida", "data-suspensao-invalida"],
+    });
+  }
+});
+
+test("datas judiciais preservam a fronteira de fevereiro nos anos bissextos", () => {
+  assert.deepEqual(validarProcessoJudicial({ dataDistribuicao: "2024-02-29", dataSuspensao: "2024-03-01" }), { valido: true });
+  assert.deepEqual(validarProcessoJudicial({ dataDistribuicao: "2026-02-29" }), {
+    valido: false, erros: ["data-distribuicao-invalida"],
+  });
+});
+
 test("um processo reune todos os erros em ordem determinista", () => {
   assert.deepEqual(
     validarProcessoJudicial({

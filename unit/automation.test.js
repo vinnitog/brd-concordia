@@ -13,14 +13,28 @@ test('development automation uses the shared OpenAI contract and queues issue ru
   assert.match(workflow, /cancel-in-progress: false/);
 });
 
-test('automation scopes Trello credentials to development, not review', () => {
+test('automation explicitly scopes utilities and Trello credentials to their callers', () => {
   for (const file of ['develop.yml', 'review.yml']) {
     const workflow = read(file);
     const references = [...workflow.matchAll(/secrets\.([A-Z_]+)/g)].map(match => match[1]);
-    const expected = file === 'develop.yml' ? ['OPENAI_API_KEY', 'TRELLO_API_KEY', 'TRELLO_TOKEN'] : ['OPENAI_API_KEY'];
+    const expected = ['OPENAI_API_KEY', 'TECHTOGS_UTILITIES_SSH_KEY'];
+    if (file === 'develop.yml') expected.push('TRELLO_API_KEY', 'TRELLO_TOKEN');
     assert.deepEqual(references, expected, file);
+    for (const secret of references) {
+      assert.ok(workflow.includes(`${secret}: \${{ secrets.${secret} }}`), file);
+    }
     assert.doesNotMatch(workflow, /secrets: inherit|id-token:/, file);
   }
   assert.match(read('review.yml'), /uses: vinnitog\/brd-ci\/\.github\/workflows\/review\.yml@main/);
   assert.match(read('review.yml'), /branches: \[develop\]/);
+  assert.match(read('review.yml'), /if: github\.event\.pull_request\.head\.repo\.full_name == github\.repository/);
+});
+
+test('fork pull requests run app tests without private utilities or privileged triggers', () => {
+  const workflow = read('test.yml');
+  assert.match(workflow, /github\.event\.pull_request\.head\.repo\.full_name == github\.repository/);
+  assert.doesNotMatch(workflow, /^  (pull_request_target|workflow_run):/m);
+  assert.match(workflow, /persist-credentials: false/);
+  assert.match(workflow, /node "\$library\/scripts\/utilities\.mjs" verify --project/);
+  assert.match(workflow, /      - run: npm test/);
 });

@@ -4,6 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "test": "node --test unit/*.test.js"
+    "test": "node --test unit/*.test.js",
+    "test:browser": "node --test browser/*.test.js"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
   }
 }

@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 1,
+  "projectId": "brd-concordia",
+  "repository": "git@github.com:vinnitog/techtogs-utilities.git",
+  "profiles": [
+    "core",
+    "planning",
+    "javascript",
+    "product"
+  ],
+  "skills": {
+    "architecture-decision-records": {
+      "path": "skills/architecture-decision-records",
+      "sha256": "3a7dfb44e8b0d8bf51e988bc19efe9ddc9d4d63ab518e3c572c3c845e9bd67fe"
+    },
+    "ask-matt": {
+      "path": "skills/ask-matt",
+      "sha256": "7dbc1d64d71ff6a7c1d3842c35f6a7591d0b26bbc26a3ea7190d55e4f347886d"
+    },
+    "business-model": {
+      "path": "skills/business-model",
+      "sha256": "104f1aea11c3ba3e62a056dfa94c23fa9ce9590d4234e292b56893c903cfea94"
+    },
+    "clean-code": {
+      "path": "skills/clean-code",
+      "sha256": "6639f9d94d4d771cc88896ff4f22a28b7472629287f84a4062611794cb5cb10c"
+    },
+    "code-review": {
+      "path": "skills/code-review",
+      "sha256": "fdabb599d324f4b8f2a02b580dd3a92888f3087d8d7f27dab5f334c918c1f73e"
+    },
+    "code-reviewer": {
+      "path": "skills/code-reviewer",
+      "sha256": "c97208bee122f6f4f9df2a705f3fad3d8c6241ba54495e96eda8f6e153144957"
+    },
+    "codebase-design": {
+      "path": "skills/codebase-design",
+      "sha256": "4b5db0f38a49ff975f3207486b2176bd244c374818fbae58cf7c0c4d43b44546"
+    },
+    "create-prd": {
+      "path": "skills/create-prd",
+      "sha256": "d7f3dd82ea4ba7845e7b973266768c5bc6d735aa63d3ff79857ed827f955179b"
+    },
+    "diagnosing-bugs": {
+      "path": "skills/diagnosing-bugs",
+      "sha256": "2996a3b4687eb8bb84809b8cdd6e9b5b384e7deffce573cbbaa87f5ecb93dfd7"
+    },
+    "domain-modeling": {
+      "path": "skills/domain-modeling",
+      "sha256": "6161addd31741affe2b91160310a587ce7ef17df74406a5ba92a68bb14b49608"
+    },
+    "error-handling-patterns": {
+      "path": "skills/error-handling-patterns",
+      "sha256": "779e6dde9c0e91d79ffb33a4317b14c501bdc6c154002f8c4916b499db3b88b7"
+    },
+    "grill-me": {
+      "path": "skills/grill-me",
+      "sha256": "5de88d108fe8664dd1c02f6cf1d00e2342cf932c57195e5cf6bac3618aef1561"
+    },
+    "grill-with-docs": {
+      "path": "skills/grill-with-docs",
+      "sha256": "0671d9153c6f95f89ed780579472289cd24cf37cc815cfde93bf4097f756b97e"
+    },
+    "grilling": {
+      "path": "skills/grilling",
+      "sha256": "01531dfba8837d2b38cda626c65fa44a7967752311cfc2a2cd4ac7d766aa18be"
+    },
+    "handoff": {
+      "path": "skills/handoff",
+      "sha256": "2c70b2b8d6c9f144cd5ae8c6a87858f86d2db10d32d1559178f0f300f5f25d1c"
+    },
+    "ideal-customer-profile": {
+      "path": "skills/ideal-customer-profile",
+      "sha256": "c4c34cf5a528ce478baab9dd6e24595f07eb0be001f07a655033ae027d75d967"
+    },
+    "identify-assumptions-existing": {
+      "path": "skills/identify-assumptions-existing",
+      "sha256": "2dc8722b2272d5379a0ff258fa3b358036f2ac945f2e3ab5be96a535cc67e9f6"
+    },
+    "identify-assumptions-new": {
+      "path": "skills/identify-assumptions-new",
+      "sha256": "9b58f427f25fe25ff5c8dd897c7e854f6682a730e7f3f9e93c95ebd5630cd447"
+    },
+    "implement": {
+      "path": "skills/implement",
+      "sha256": "59713ee25a9ded02658863ff9e725a0f5bc5ed955b1aeac3c3dbc69eae6aea3e"
+    },
+    "implement-spec": {
+      "path": "skills/implement-spec",
+      "sha256": "c7cd4f8b765d4f87fce7f0555de15ce22ffba136c444a9d6d323d67dd6e3e28f"
+    },
+    "improve-codebase-architecture": {
+      "path": "skills/improve-codebase-architecture",
+      "sha256": "aa6e0705570463a9cd812a2f37a251ad5782ff2ef87d38e4fce0356fc45fe0c2"
+    },
+    "interview-script": {
+      "path": "skills/interview-script",
+      "sha256": "8114a742b005eeddb92b567fb691cb815286683343f3e988e9399076cbba800b"
+    },
+    "javascript-testing-patterns": {
+      "path": "skills/javascript-testing-patterns",
+      "sha256": "b20a1d484d23a92e7612f2e707a938a3edd19a43d0bc5549b19498436158ca4a"
+    },
+    "monetization-strategy": {
+      "path": "skills/monetization-strategy",
+      "sha256": "910aac6ced5842d6b13186046825b11e36df24910ceb6ce9ff68c55070c5235c"
+    },
+    "north-star-metric": {
+      "path": "skills/north-star-metric",
+      "sha256": "bc8ac03d8370e87a47904a19cb5fd2a94dc16f46ff54042f9d8d49e8913f08a6"
+    },
+    "opportunity-solution-tree": {
+      "path": "skills/opportunity-solution-tree",
+      "sha256": "f45d41482bd120eb8f7803e1f03c61de23ec1e46f6f6f8d995bb2952618d7bb7"
+    },
+    "outcome-roadmap": {
+      "path": "skills/outcome-roadmap",
+      "sha256": "b958d490c589d462942eefa029141e85dc17a6f4a27501a0b5809659344c37f8"
+    },
+    "pr": {
+      "path": "skills/pr",
+      "sha256": "bb341277e29cea78e0df63b7fb30ef039b0ef17ef69f2352c500b1f66b7125fa"
+    },
+    "pricing-strategy": {
+      "path": "skills/pricing-strategy",
+      "sha256": "50236841b1deb2444a8632e8455fa5c78afde931956c12a798cfbd665ebec4bd"
+    },
+    "prioritization-frameworks": {
+      "path": "skills/prioritization-frameworks",
+      "sha256": "a011270362a15cf1c0f34491e0fb30764929ace683c8db4e1fe2289c116337f8"
+    },
+    "prioritize-features": {
+      "path": "skills/prioritize-features",
+      "sha256": "32cb5b3117562417ea4efab4005f60493a4199dedd1ff66e1050c297ed39f873"
+    },
+    "product-strategy": {
+      "path": "skills/product-strategy",
+      "sha256": "de0ae32ec3ef98c4da9b71c3382ed336363fcd55343847f0c745cf6b54d84f97"
+    },
+    "product-vision": {
+      "path": "skills/product-vision",
+      "sha256": "75b857d4297bb8016d7840fd2a844ccd4e3f3f66c9a243c1455d75baa5f7c772"
+    },
+    "prototype": {
+      "path": "skills/prototype",
+      "sha256": "e757680f1ea8065616754d84f100a5191488b6c80247369c9a005360aaca125d"
+    },
+    "qa-automate": {
+      "path": "skills/qa-automate",
+      "sha256": "d2bc5506c81e15d74abdef0a7c092a20f19563658c09c2f23f13f76d35909877"
+    },
+    "qa-senior": {
+      "path": "skills/qa-senior",
+      "sha256": "9d5636a925d9d7e84bf46a25022e1864b7c051140ac827e6bc21abe4d994f5d8"
+    },
+    "research": {
+      "path": "skills/research",
+      "sha256": "1253479e3427504d9c3bf55bdf492ad276f6dac8512dc6d621faa2d10dbea30f"
+    },
+    "retro": {
+      "path": "skills/retro",
+      "sha256": "1020df98460adde8431c21b4b87a720b7c15acfe3a890443ac5e8d0311c4875a"
+    },
+    "senior-dev": {
+      "path": "skills/senior-dev",
+      "sha256": "927fa9797461dbbd949c2af2150198678d3d640a31d0e27abccb8b47722ca140"
+    },
+    "setup-matt-pocock-skills": {
+      "path": "skills/setup-matt-pocock-skills",
+      "sha256": "7b384b59856c84ed66dbf2cae9b11592149ae17195c2f14691336976468f6f84"
+    },
+    "strategy-red-team": {
+      "path": "skills/strategy-red-team",
+      "sha256": "e17ab871a39bb84a514014b96ea845c6cc60155d81a004bcaf1696a0321d9655"
+    },
+    "tdd": {
+      "path": "skills/tdd",
+      "sha256": "360e919508603b2d22cb4ae537400aa253871fba89e4e21d0de25ab500ac3921"
+    },
+    "test-scenarios": {
+      "path": "skills/test-scenarios",
+      "sha256": "4ff8a8692cca670978f6848c09d02953e4bcebdeb1c6864cc6992825cce07ce1"
+    },
+    "to-spec": {
+      "path": "skills/to-spec",
+      "sha256": "f25cd40b2734079ff9cad5464d1c7f3d7d57077f1146784b820928fc29409bd2"
+    },
+    "to-tickets": {
+      "path": "skills/to-tickets",
+      "sha256": "ecaccf173a2529e005269e7aefba7cc60b5ab3d24cd6fe8f0a0e0878ad318f73"
+    },
+    "triage": {
+      "path": "skills/triage",
+      "sha256": "2774ce15ad3eeba9a43948cc689c74269226e00e7bf910c435a488b7a641793d"
+    },
+    "value-proposition": {
+      "path": "skills/value-proposition",
+      "sha256": "d897743f630ca03b8d913407e96784c7ffc51ee29e6138d9c87d64cb6a2d3c64"
+    },
+    "wayfinder": {
+      "path": "skills/wayfinder",
+      "sha256": "8df0edacf72c4779de266bd9a432fe457c3af9a8df8c0e00c13aefb77b7b9f04"
+    },
+    "writing-for-agents": {
+      "path": "skills/writing-for-agents",
+      "sha256": "9d87367a3004faa68ca965274dbd168f2531deb47279ecf086e13eee18ba8278"
+    }
+  },
+  "bindings": {
+    ".agents/skills/architecture-decision-records": {
+      "path": "skills/architecture-decision-records",
+      "sha256": "3a7dfb44e8b0d8bf51e988bc19efe9ddc9d4d63ab518e3c572c3c845e9bd67fe",
+      "originalHash": "3a7dfb44e8b0d8bf51e988bc19efe9ddc9d4d63ab518e3c572c3c845e9bd67fe"
+    },
+    ".agents/skills/ask-matt": {
+      "path": "skills/ask-matt",
+      "sha256": "7dbc1d64d71ff6a7c1d3842c35f6a7591d0b26bbc26a3ea7190d55e4f347886d"
+    },
+    ".agents/skills/business-model": {
+      "path": "skills/business-model",
+      "sha256": "104f1aea11c3ba3e62a056dfa94c23fa9ce9590d4234e292b56893c903cfea94"
+    },
+    ".agents/skills/clean-code": {
+      "path": "skills/clean-code",
+      "sha256": "6639f9d94d4d771cc88896ff4f22a28b7472629287f84a4062611794cb5cb10c"
+    },
+    ".agents/skills/code-review": {
+      "path": "skills/code-review",
+      "sha256": "fdabb599d324f4b8f2a02b580dd3a92888f3087d8d7f27dab5f334c918c1f73e"
+    },
+    ".agents/skills/code-reviewer": {
+      "path": "skills/code-reviewer",
+      "sha256": "c97208bee122f6f4f9df2a705f3fad3d8c6241ba54495e96eda8f6e153144957"
+    },
+    ".agents/skills/codebase-design": {
+      "path": "skills/codebase-design",
+      "sha256": "4b5db0f38a49ff975f3207486b2176bd244c374818fbae58cf7c0c4d43b44546",
+      "originalHash": "4b5db0f38a49ff975f3207486b2176bd244c374818fbae58cf7c0c4d43b44546"
+    },
+    ".agents/skills/create-prd": {
+      "path": "skills/create-prd",
+      "sha256": "d7f3dd82ea4ba7845e7b973266768c5bc6d735aa63d3ff79857ed827f955179b"
+    },
+    ".agents/skills/diagnosing-bugs": {
+      "path": "skills/diagnosing-bugs",
+      "sha256": "2996a3b4687eb8bb84809b8cdd6e9b5b384e7deffce573cbbaa87f5ecb93dfd7",
+      "originalHash": "2996a3b4687eb8bb84809b8cdd6e9b5b384e7deffce573cbbaa87f5ecb93dfd7"
+    },
+    ".agents/skills/domain-modeling": {
+      "path": "skills/domain-modeling",
+      "sha256": "6161addd31741affe2b91160310a587ce7ef17df74406a5ba92a68bb14b49608",
+      "originalHash": "6161addd31741affe2b91160310a587ce7ef17df74406a5ba92a68bb14b49608"
+    },
+    ".agents/skills/error-handling-patterns": {
+      "path": "skills/error-handling-patterns",
+      "sha256": "779e6dde9c0e91d79ffb33a4317b14c501bdc6c154002f8c4916b499db3b88b7"
+    },
+    ".agents/skills/grill-me": {
+      "path": "skills/grill-me",
+      "sha256": "5de88d108fe8664dd1c02f6cf1d00e2342cf932c57195e5cf6bac3618aef1561",
+      "originalHash": "5de88d108fe8664dd1c02f6cf1d00e2342cf932c57195e5cf6bac3618aef1561"
+    },
+    ".agents/skills/grill-with-docs": {
+      "path": "skills/grill-with-docs",
+      "sha256": "0671d9153c6f95f89ed780579472289cd24cf37cc815cfde93bf4097f756b97e"
+    },
+    ".agents/skills/grilling": {
+      "path": "skills/grilling",
+      "sha256": "01531dfba8837d2b38cda626c65fa44a7967752311cfc2a2cd4ac7d766aa18be"
+    },
+    ".agents/skills/handoff": {
+      "path": "skills/handoff",
+      "sha256": "2c70b2b8d6c9f144cd5ae8c6a87858f86d2db10d32d1559178f0f300f5f25d1c"
+    },
+    ".agents/skills/ideal-customer-profile": {
+      "path": "skills/ideal-customer-profile",
+      "sha256": "c4c34cf5a528ce478baab9dd6e24595f07eb0be001f07a655033ae027d75d967"
+    },
+    ".agents/skills/identify-assumptions-existing": {
+      "path": "skills/identify-assumptions-existing",
+      "sha256": "2dc8722b2272d5379a0ff258fa3b358036f2ac945f2e3ab5be96a535cc67e9f6"
+    },
+    ".agents/skills/identify-assumptions-new": {
+      "path": "skills/identify-assumptions-new",
+      "sha256": "9b58f427f25fe25ff5c8dd897c7e854f6682a730e7f3f9e93c95ebd5630cd447"
+    },
+    ".agents/skills/implement": {
+      "path": "skills/implement",
+      "sha256": "59713ee25a9ded02658863ff9e725a0f5bc5ed955b1aeac3c3dbc69eae6aea3e"
+    },
+    ".agents/skills/implement-spec": {
+      "path": "skills/implement-spec",
+      "sha256": "c7cd4f8b765d4f87fce7f0555de15ce22ffba136c444a9d6d323d67dd6e3e28f"
+    },
+    ".agents/skills/improve-codebase-architecture": {
+      "path": "skills/improve-codebase-architecture",
+      "sha256": "aa6e0705570463a9cd812a2f37a251ad5782ff2ef87d38e4fce0356fc45fe0c2"
+    },
+    ".agents/skills/interview-script": {
+      "path": "skills/interview-script",
+      "sha256": "8114a742b005eeddb92b567fb691cb815286683343f3e988e9399076cbba800b"
+    },
+    ".agents/skills/javascript-testing-patterns": {
+      "path": "skills/javascript-testing-patterns",
+      "sha256": "b20a1d484d23a92e7612f2e707a938a3edd19a43d0bc5549b19498436158ca4a"
+    },
+    ".agents/skills/monetization-strategy": {
+      "path": "skills/monetization-strategy",
+      "sha256": "910aac6ced5842d6b13186046825b11e36df24910ceb6ce9ff68c55070c5235c"
+    },
+    ".agents/skills/north-star-metric": {
+      "path": "skills/north-star-metric",
+      "sha256": "bc8ac03d8370e87a47904a19cb5fd2a94dc16f46ff54042f9d8d49e8913f08a6"
+    },
+    ".agents/skills/opportunity-solution-tree": {
+      "path": "skills/opportunity-solution-tree",
+      "sha256": "f45d41482bd120eb8f7803e1f03c61de23ec1e46f6f6f8d995bb2952618d7bb7"
+    },
+    ".agents/skills/outcome-roadmap": {
+      "path": "skills/outcome-roadmap",
+      "sha256": "b958d490c589d462942eefa029141e85dc17a6f4a27501a0b5809659344c37f8"
+    },
+    ".agents/skills/pr": {
+      "path": "skills/pr",
+      "sha256": "bb341277e29cea78e0df63b7fb30ef039b0ef17ef69f2352c500b1f66b7125fa"
+    },
+    ".agents/skills/pricing-strategy": {
+      "path": "skills/pricing-strategy",
+      "sha256": "50236841b1deb2444a8632e8455fa5c78afde931956c12a798cfbd665ebec4bd"
+    },
+    ".agents/skills/prioritization-frameworks": {
+      "path": "skills/prioritization-frameworks",
+      "sha256": "a011270362a15cf1c0f34491e0fb30764929ace683c8db4e1fe2289c116337f8"
+    },
+    ".agents/skills/prioritize-features": {
+      "path": "skills/prioritize-features",
+      "sha256": "32cb5b3117562417ea4efab4005f60493a4199dedd1ff66e1050c297ed39f873"
+    },
+    ".agents/skills/product-strategy": {
+      "path": "skills/product-strategy",
+      "sha256": "de0ae32ec3ef98c4da9b71c3382ed336363fcd55343847f0c745cf6b54d84f97"
+    },
+    ".agents/skills/product-vision": {
+      "path": "skills/product-vision",
+      "sha256": "75b857d4297bb8016d7840fd2a844ccd4e3f3f66c9a243c1455d75baa5f7c772"
+    },
+    ".agents/skills/prototype": {
+      "path": "skills/prototype",
+      "sha256": "e757680f1ea8065616754d84f100a5191488b6c80247369c9a005360aaca125d"
+    },
+    ".agents/skills/qa-automate": {
+      "path": "skills/qa-automate",
+      "sha256": "d2bc5506c81e15d74abdef0a7c092a20f19563658c09c2f23f13f76d35909877"
+    },
+    ".agents/skills/qa-senior": {
+      "path": "skills/qa-senior",
+      "sha256": "9d5636a925d9d7e84bf46a25022e1864b7c051140ac827e6bc21abe4d994f5d8"
+    },
+    ".agents/skills/research": {
+      "path": "skills/research",
+      "sha256": "1253479e3427504d9c3bf55bdf492ad276f6dac8512dc6d621faa2d10dbea30f"
+    },
+    ".agents/skills/retro": {
+      "path": "skills/retro",
+      "sha256": "1020df98460adde8431c21b4b87a720b7c15acfe3a890443ac5e8d0311c4875a"
+    },
+    ".agents/skills/senior-dev": {
+      "path": "skills/senior-dev",
+      "sha256": "927fa9797461dbbd949c2af2150198678d3d640a31d0e27abccb8b47722ca140"
+    },
+    ".agents/skills/setup-matt-pocock-skills": {
+      "path": "skills/setup-matt-pocock-skills",
+      "sha256": "7b384b59856c84ed66dbf2cae9b11592149ae17195c2f14691336976468f6f84"
+    },
+    ".agents/skills/strategy-red-team": {
+      "path": "skills/strategy-red-team",
+      "sha256": "e17ab871a39bb84a514014b96ea845c6cc60155d81a004bcaf1696a0321d9655"
+    },
+    ".agents/skills/tdd": {
+      "path": "skills/tdd",
+      "sha256": "360e919508603b2d22cb4ae537400aa253871fba89e4e21d0de25ab500ac3921",
+      "originalHash": "360e919508603b2d22cb4ae537400aa253871fba89e4e21d0de25ab500ac3921"
+    },
+    ".agents/skills/test-scenarios": {
+      "path": "skills/test-scenarios",
+      "sha256": "4ff8a8692cca670978f6848c09d02953e4bcebdeb1c6864cc6992825cce07ce1"
+    },
+    ".agents/skills/to-spec": {
+      "path": "skills/to-spec",
+      "sha256": "f25cd40b2734079ff9cad5464d1c7f3d7d57077f1146784b820928fc29409bd2"
+    },
+    ".agents/skills/to-tickets": {
+      "path": "skills/to-tickets",
+      "sha256": "ecaccf173a2529e005269e7aefba7cc60b5ab3d24cd6fe8f0a0e0878ad318f73"
+    },
+    ".agents/skills/triage": {
+      "path": "skills/triage",
+      "sha256": "2774ce15ad3eeba9a43948cc689c74269226e00e7bf910c435a488b7a641793d"
+    },
+    ".agents/skills/value-proposition": {
+      "path": "skills/value-proposition",
+      "sha256": "d897743f630ca03b8d913407e96784c7ffc51ee29e6138d9c87d64cb6a2d3c64"
+    },
+    ".agents/skills/wayfinder": {
+      "path": "skills/wayfinder",
+      "sha256": "8df0edacf72c4779de266bd9a432fe457c3af9a8df8c0e00c13aefb77b7b9f04"
+    },
+    ".agents/skills/writing-for-agents": {
+      "path": "skills/writing-for-agents",
+      "sha256": "9d87367a3004faa68ca965274dbd168f2531deb47279ecf086e13eee18ba8278"
+    }
+  },
+  "projectRules": [],
+  "retired": [],
+  "retiredHashes": {},
+  "retiredRules": {},
+  "libraryCommit": "547b07aa1c645f8f7517c908b330305242c350fb"
+}

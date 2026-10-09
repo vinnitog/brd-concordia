@@ -37,5 +37,6 @@ jobs:
       provider: openai
     secrets:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      TECHTOGS_UTILITIES_SSH_KEY: ${{ secrets.TECHTOGS_UTILITIES_SSH_KEY }}
       TRELLO_API_KEY: ${{ secrets.TRELLO_API_KEY }}
       TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}

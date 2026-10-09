@@ -1,4 +1,4 @@
-﻿# Dependencies
+# Dependencies
 node_modules/
 .venv/
 venv/
@@ -36,3 +36,7 @@ Thumbs.db
 
 # Local agent state
 .codex/
+
+# techtogs-utilities: conteudo compartilhado gerado pelo bootstrap
+/.agents/skills/
+/.codex/skills/

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "projectId": "brd-concordia",
+  "responsibility": "Scaffold de dominio e demonstracao estatica de acordos, cobrancas, documentos, prazos e financeiro juridico.",
+  "capabilities": [
+    "static-demo-frontend",
+    "github-pages-demo",
+    "planned-frontend",
+    "planned-auth",
+    "planned-personal-data",
+    "planned-supabase",
+    "domain-design"
+  ]
+}

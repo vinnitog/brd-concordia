@@ -16,6 +16,8 @@ permissions:
 
 jobs:
   review:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     uses: vinnitog/brd-ci/.github/workflows/review.yml@main
     secrets:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      TECHTOGS_UTILITIES_SSH_KEY: ${{ secrets.TECHTOGS_UTILITIES_SSH_KEY }}

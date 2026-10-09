@@ -1,5 +1,39 @@
 # Auditoria da primeira interface
 
+## Retomada — 09/10/2026
+
+A auditoria confrontou as pendências históricas com a implementação atual.
+O problema da origem 4173, o favicon próprio do Concordia, os estados de detalhe
+e o reset de Todos os prazos já estavam corrigidos. Os dois últimos agora têm
+evidência de navegador, assim como filtros combinados, CSV, teclado e foco.
+O aplicativo continua uma demonstração fictícia e não possui login.
+
+| Impacto | Achado atual | Estado |
+| --- | --- | --- |
+| P1 | Página móvel excedia a viewport por um rótulo oculto da tabela | Corrigido com posicionamento relativo no contêiner; quatro vistas/detalhes aprovados entre 320 e 1440 px |
+| P2 | Botão de exportação transbordava em Acordos com texto a 200% | Corrigido com quebra do cabeçalho e largura preservada do botão |
+| P2 | Anúncio acessível contava débitos na vista de acordos/prazos | Corrigido; anúncio acompanha contagem e período exibidos |
+| P2 | Evidência de interação I01–I04 ausente | Resolvido por 12 testes Playwright; resultados separados em `qa-interface.md` |
+| P2 | Zoom nativo e leitores de tela | Pendente; fonte raiz ampliada e região viva testada não substituem essas avaliações |
+| P3 | Variante menor do logotipo institucional | Adiada; ativo original preservado |
+
+Não foi necessário redesenhar a identidade ou trocar a stack. A confirmação
+visual mostrou a hierarquia preservada no desktop, reflow dos controles no
+celular e exportação íntegra com texto ampliado. A tabela continua rolável
+horizontalmente, inclusive pelo teclado, sem ampliar a largura da página.
+
+O contexto Impeccable foi carregado uma vez; o detector foi executado uma vez
+nesta retomada sobre HTML/CSS/JS e não emitiu achados. Isso não certifica
+acessibilidade. Foram capturadas referências antes e uma rodada de confirmação
+depois do lote; arquivos locais em `.tmp/interaction-audit/`.
+Modelo, HTTP, navegador e limites estão em `docs/qa-interface.md`.
+
+Para o próximo lote, priorizar avaliação assistiva e zoom nativo; a variante do
+logo tem impacto menor. Decisões de produto financeiro e suspensão judicial
+permanecem em `docs/viabilidade.md`, sem bloquear estas correções da demonstração.
+
+## Histórico da primeira entrega
+
 Data: 19/09/2026. Escopo: demonstracao local do BRD Concordia.
 
 ## Ponto de partida
