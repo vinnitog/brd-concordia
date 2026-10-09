@@ -17,6 +17,10 @@ modelo/HTTP continuam sem dependências de runtime.
 Os 13 e 7 testes estão incluídos nos 199, não são testes adicionais.
 Logs locais ignorados pelo Git: `.tmp/interaction-audit/{unit,model,http,browser}-final.log`.
 O job separado de navegador no CI usa Chromium e não recebe Secrets.
+O [CI de integração](https://github.com/vinnitog/brd-concordia/actions/runs/37961504449)
+também passou com 199 testes Node e 12 testes Chromium, além da verificação
+autenticada da biblioteca privada em job separado. O clone limpo foi validado
+conforme `docs/agent-rules/migration.md`.
 
 I01–I04 estão cobertos por `browser/interface.test.js`: todos os períodos;
 detalhes A/B, expansão, Escape e retorno de foco; quatro vistas, hash desconhecido,

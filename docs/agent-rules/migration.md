@@ -15,8 +15,8 @@ decisoes de produto em `PROJECT_CONTEXT.md` e `CONTEXT.md`.
 - A decisao de 2026-10-07 continua vigente: Gemini somente na triagem; Codex no
   desenvolvimento, revisao e integracao. A migracao de skills nao altera provedores.
 - `.agents/skills/` contem links locais ignorados pelo Git. As 18 copias antigas
-  versionadas precisam sair do indice na mesma entrega do manifesto, bootstrap,
-  regras e testes. Remover do indice preserva os links e seus targets compartilhados.
+  versionadas sairam do indice na mesma entrega do manifesto, bootstrap,
+  regras e testes. A remocao do indice preservou os links e seus targets compartilhados.
   Nao apagar os arquivos atraves das junctions.
 - As licencas historicas em `.togs/licenses/` permanecem preservadas.
 
@@ -24,7 +24,9 @@ decisoes de produto em `PROJECT_CONTEXT.md` e `CONTEXT.md`.
 
 O teste de automacao antigo exigia apenas `OPENAI_API_KEY`, mas os callers preparados
 para utilities ja passavam `TECHTOGS_UTILITIES_SSH_KEY`. A allowlist agora verifica
-ambas, com mapeamento explicito e sem `secrets: inherit`. O contrato publicado do
+ambas, com mapeamento explicito e sem `secrets: inherit`. A integracao posterior de
+`main` preservou `TRELLO_API_KEY` e `TRELLO_TOKEN` somente no caller de desenvolvimento,
+conforme o PR #36; o review nao recebe essas credenciais. O contrato publicado do
 `brd-ci` declara a chave utilities opcional. A presenca do Secret foi consultada;
 nenhum valor foi lido ou alterado.
 
@@ -66,13 +68,25 @@ biblioteca por um clone limpo para ocultar a divergencia.
   e 49 verificados. Nenhum perfil alem do manifesto foi instalado. Esse clone e
   exclusivamente uma evidencia isolada, nao substitui a biblioteca compartilhada
   em uso. Os arquivos da biblioteca limpa permaneceram sem modificacoes.
-- Essa validacao usa a autenticacao SSH local existente; nao expoe credenciais nem
-  prova, por si so, a execucao da deploy key pelo GitHub Actions. A presenca do Secret
-  foi confirmada, e o resultado remoto precisa ser conferido no CI do commit publicado.
-- O candidato ainda nao representa um commit publicado da migracao. Depois de
-  registrar a entrega coerente (incluindo as remocoes do indice), repetir clone limpo
-  do commit e bootstrap antes de declarar a publicacao validada. A falha central do
-  workspace original continua registrada acima, mesmo quando o clone limpo passa.
+- Depois do candidato, o commit publicado `d4a2c47` foi clonado do GitHub via SSH
+  em um diretorio novo, sem overlay nem copias de skills versionadas. Os 199 testes
+  passaram antes de instalar skills. Bootstrap e verify autenticados no pin
+  instalaram/verificaram 49 bindings; `npm ci` e os 12 testes Edge tambem passaram.
+  Clone do aplicativo e checkout privado permaneceram limpos.
+- O clone foi atualizado por fast-forward para `1558a00`, que incorpora as
+  alteracoes de `main` preservando os dois contratos de credenciais. A regressao
+  completa passou novamente (199), assim como verify (49). Evidencias locais em
+  `.tmp/utilities-validation-20261009/`; esse diretorio nao e publicado.
+- No GitHub Actions, o [CI integrado](https://github.com/vinnitog/brd-concordia/actions/runs/37961504449)
+  passou: checkout privado com a deploy key, install/verify de 49 bindings,
+  199 testes Node e 12 testes Chromium. O
+  [smoke de autenticacao privada](https://github.com/vinnitog/brd-concordia/actions/runs/37961499087)
+  tambem passou. Isso comprova a credencial remota separadamente do SSH local,
+  sem ler nem alterar valores de Secrets.
+- A migracao esta publicada em `develop`, no [PR #37](https://github.com/vinnitog/brd-concordia/pull/37),
+  aguardando aprovacao para `main`. A instalacao compartilhada original continua
+  com a dependencia central de senior-dev registrada acima; o sucesso do clone
+  limpo nao a elimina. Nenhuma alteracao foi feita na biblioteca compartilhada.
 - Nenhuma alteracao de banco, producao, cobrancas ou mensagens externas faz parte
   desta migracao. Testes de modelo, HTTP e navegador estao registrados separadamente
   em `docs/qa-interface.md`.
