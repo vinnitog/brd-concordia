@@ -163,7 +163,7 @@
     },
     "senior-dev": {
       "path": "skills/senior-dev",
-      "sha256": "927fa9797461dbbd949c2af2150198678d3d640a31d0e27abccb8b47722ca140"
+      "sha256": "0771867e4fff8b3cb52e96a82718a45f1669425c868a7b8b6ba3c1001b345406"
     },
     "setup-matt-pocock-skills": {
       "path": "skills/setup-matt-pocock-skills",
@@ -366,7 +366,7 @@
     },
     ".agents/skills/senior-dev": {
       "path": "skills/senior-dev",
-      "sha256": "927fa9797461dbbd949c2af2150198678d3d640a31d0e27abccb8b47722ca140"
+      "sha256": "0771867e4fff8b3cb52e96a82718a45f1669425c868a7b8b6ba3c1001b345406"
     },
     ".agents/skills/setup-matt-pocock-skills": {
       "path": "skills/setup-matt-pocock-skills",
@@ -414,5 +414,5 @@
   "retired": [],
   "retiredHashes": {},
   "retiredRules": {},
-  "libraryCommit": "547b07aa1c645f8f7517c908b330305242c350fb"
+  "libraryCommit": "bd46a3d293aec0c85bdc5a1be6b1a2c6477438a7"
 }
