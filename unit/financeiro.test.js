@@ -12,7 +12,7 @@ const {
   validarPagamento,
 } = require("../src/domain/financeiro");
 
-test("o cadastro financeiro aceita apenas os campos obrigatorios preenchidos", () => {
+test("o cadastro financeiro aceita valores e vencimento informados", () => {
   assert.deepEqual(
     validarCadastroFinanceiro({
       valorOriginal: 1000,
@@ -23,15 +23,24 @@ test("o cadastro financeiro aceita apenas os campos obrigatorios preenchidos", (
   );
 });
 
-test("o cadastro financeiro exige valor original, atualizado e vencimento original", () => {
-  assert.deepEqual(validarCadastroFinanceiro({}), {
-    valido: false,
-    erros: [
-      "valor-original-obrigatorio",
-      "valor-atualizado-obrigatorio",
-      "data-vencimento-original-obrigatoria",
-    ],
-  });
+test("o cadastro financeiro permite campos opcionais conforme a ultima decisao da Issue 17", () => {
+  assert.deepEqual(validarCadastroFinanceiro(), { valido: true });
+  assert.deepEqual(validarCadastroFinanceiro({ valorOriginal: 0 }), { valido: true });
+  assert.deepEqual(validarCadastroFinanceiro({ valorAtualizado: 100 }), { valido: true });
+  assert.deepEqual(validarCadastroFinanceiro({ dataVencimentoOriginal: "2026-01-31" }), { valido: true });
+});
+
+test("campos financeiros opcionais informados continuam sujeitos a validacao", () => {
+  for (const dataVencimentoOriginal of ["", "   ", ["2026-03-10"], 20260310]) {
+    assert.deepEqual(validarCadastroFinanceiro({ dataVencimentoOriginal }), {
+      valido: false, erros: ["data-vencimento-original-invalida"],
+    });
+  }
+  for (const valorOriginal of [-1, NaN, Infinity, "100"]) {
+    assert.deepEqual(validarCadastroFinanceiro({ valorOriginal }), {
+      valido: false, erros: ["valor-original-invalido"],
+    });
+  }
 });
 
 test("o cadastro financeiro rejeita valores nao monetarios e data inexistente", () => {

@@ -1,11 +1,11 @@
-﻿# AGENTS.md - BRD Concordia
+# AGENTS.md - BRD Concordia
 
 ## Workspace Obrigatorio
 
 O workspace correto deste projeto e:
 
 ```text
-C:\Users\Togszera\Desktop\brd-concordia
+Raiz deste repositorio (diretorio que contem AGENTS.md e .git)
 ```
 
 Antes de qualquer leitura, edicao, teste, commit ou push, confirme que o comando esta rodando nesse diretorio.
@@ -24,7 +24,7 @@ Node.js + biblioteca padrao
 
 React + Vite + Supabase e apenas uma hipotese futura registrada em `PROJECT_CONTEXT.md`. Existe uma interface demonstrativa local em HTML/CSS/JavaScript; nao existe autenticacao, banco ou Supabase real neste repositorio.
 
-Antes de introduzir qualquer runtime ou servico externo, confirme a capacidade em `.togs\orchestrator.json`, compare alternativas e registre decisoes dificeis de reverter.
+Antes de introduzir qualquer runtime ou servico externo, confirme a capacidade em `docs/agent-rules/capabilities.json` e `PROJECT_CONTEXT.md`, compare alternativas e registre decisoes dificeis de reverter. `.techtogs-utilities.json` fixa a biblioteca de skills, nao autoriza servicos de produto.
 
 O `senior-dev` deve preferir contratos puros e a solucao minima que resolva o requisito comprovado.
 
@@ -105,16 +105,15 @@ O objetivo e nao repetir ciclos improdutivos de Browser quando o bloqueio e do a
 - Se ja existir PR `develop -> main`, atualize/comente o PR existente em vez de tentar criar duplicado.
 - Se houver service worker/cache, incremente a versao do cache quando HTML/CSS/JS mudar.
 
-<!-- togs-orchestrator:start -->
-## Orquestracao Central
+<!-- techtogs-utilities:start -->
+## Skills e agentes compartilhados
 
-Este repositorio e um no independente gerenciado pelo hub `togs-backoffice` com o id `brd-concordia`. Quando um caminho local for necessario, resolva-o pelo control plane ou pela variavel `TOGS_BACKOFFICE_PATH`; nao publique paths de usuario neste repositorio.
+Leia `SKILLS_SHARED.md` e `.techtogs-utilities.json`. As skills genericas e os
+papeis de implementacao, revisao e QA vem de `techtogs-utilities`. Preserve o
+fluxo Git, a stack, os testes e as decisoes especificas acima. Use o contexto
+ja disponivel antes de solicitar dados ou confirmacoes adicionais.
 
-Antes de alterar codigo, testes, documentacao ou configuracao:
+- Contexto, regras de negocio e comandos permanecem nos documentos locais existentes.
+- Leia `docs/agent-rules/capabilities.json` e `docs/agent-rules/migration.md` para capacidades, verificacao e limites da migracao. Nao personalize a biblioteca compartilhada nem altere hashes para aceitar divergencias locais.
 
-1. Leia `.togs\orchestrator.json` para confirmar responsabilidade e capacidades.
-2. Leia `SKILLS_MANAGED.md` e ative somente skills compativeis com a tarefa.
-3. Preserve a independencia deste repositorio: nao importe codigo diretamente de outro projeto e nao compartilhe historico Git.
-
-O hub pode auditar e sincronizar metadados/skills, mas nao pode commitar, fazer push, merge, deploy ou remover arquivos deste repositorio automaticamente.
-<!-- togs-orchestrator:end -->
+<!-- techtogs-utilities:end -->

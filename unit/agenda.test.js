@@ -90,6 +90,22 @@ test("gerar parcelas rejeita valores nao inteiros", () => {
   );
 });
 
+test("gerar parcelas rejeita centavos que nao podem ser representados exatamente", () => {
+  assert.deepEqual(gerarParcelas({
+    valorTotalEmCentavos: Number.MAX_SAFE_INTEGER + 1,
+    quantidadeParcelas: 3,
+    primeiroVencimento: "2026-01-31",
+  }), { valido: false, erros: ["valor-total-invalido"] });
+  const resultado = gerarParcelas({
+    valorTotalEmCentavos: Number.MAX_SAFE_INTEGER,
+    quantidadeParcelas: 3,
+    primeiroVencimento: "2026-01-31",
+  });
+  assert.equal(resultado.valido, true);
+  assert.equal(somarCentavos(resultado.parcelas), Number.MAX_SAFE_INTEGER);
+  assert.ok(resultado.parcelas.every((parcela) => Number.isSafeInteger(parcela.valorEmCentavos)));
+});
+
 const ACORDOS_EXEMPLO = [
   {
     id: "acordo-1",

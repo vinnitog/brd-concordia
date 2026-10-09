@@ -75,6 +75,9 @@ Conteudos exclusivos do BRD Pactum, melhorias do BRD Assistant e a agenda generi
 
 ## Decisoes De Dominio Atuais
 
+- A resposta posterior de Luis na Issue #17 torna todos os campos do cadastro financeiro opcionais. Valores e datas informados continuam sujeitos a validacao; aprovacao de pagamento, comprovantes condicionais e exclusao mutua entre perdao e remicao permanecem vigentes. A revisao de 09/10/2026 esta documentada em `docs/viabilidade.md`.
+- Agenda e demonstracao preservam valores em centavos inteiros seguros. Os contratos legados de `financeiro.js` e `judicial.js` ainda recebem valores em reais; esta revisao nao converte unidades nem conecta esses contratos ao frontend.
+
 - `Parte` e o cadastro juridico canonico; credor e devedor sao papeis assumidos em cada `Debito`.
 - `UsuarioBRD` representa identidade operacional interna e nao se confunde com `Parte`; acesso externo esta fora do scaffold.
 - Cada `Acordo` pertence a um unico `Debito`; um debito preserva acordos sucessivos e possui no maximo um acordo ativo.
@@ -104,6 +107,12 @@ Node.js + biblioteca padrao
 ```
 
 O dominio usa modulos puros e o test runner nativo do Node.js. O frontend demonstrativo usa APIs nativas do navegador e servidor HTTP da biblioteca padrao. Nao ha dependencia externa de runtime, build ou servico.
+
+Desde 09/10/2026, Playwright e uma dependencia apenas de desenvolvimento para testar
+interacoes, downloads, foco e reflow reais. Um harness DOM nao comprovaria layout
+nem foco de navegador. A suite continua no runner nativo do Node e nao acrescenta
+framework ao aplicativo. `npm.cmd run test:browser` exige `npm.cmd ci` e Chromium
+instalado pelo Playwright, ou Edge local via `BROWSER_CHANNEL=msedge`.
 
 ## Revisao Obrigatoria De Stack
 

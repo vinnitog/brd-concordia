@@ -1,6 +1,54 @@
 # QA da demonstração local
 
-Plano definido na etapa `qa-senior` em 19/09/2026. A execução e os resultados pertencem à etapa `qa-automate` e à validação final; este documento não afirma validação visual em navegador.
+## Estado atual — 09/10/2026
+
+Esta revisão substitui as pendências de interação das seções históricas abaixo.
+Foram usados os papéis qa-senior e qa-automate, com Playwright 1.62.1 como
+dependência de desenvolvimento e o runner nativo do Node. Aplicativo e testes de
+modelo/HTTP continuam sem dependências de runtime.
+
+| Camada | Execução | Resultado |
+| --- | --- | --- |
+| Regressão completa | `test.cmd` | 199 aprovados, zero falhas/ignorados |
+| Modelo da demonstração | `node --test unit/preview-model.test.js` | 13 aprovados; centavos, vínculos, filtros, datas e serialização CSV |
+| HTTP local | `node --test unit/preview-server.test.js` | 7 aprovados; servidor efêmero, tipos, métodos, isolamento de arquivos e rotas |
+| Navegador | `BROWSER_CHANNEL=msedge`, `npm.cmd run test:browser` | 12 aprovados no Edge 154.0.4258.62, sem erros JS/console/recursos |
+
+Os 13 e 7 testes estão incluídos nos 199, não são testes adicionais.
+Logs locais ignorados pelo Git: `.tmp/interaction-audit/{unit,model,http,browser}-final.log`.
+O job separado de navegador no CI usa Chromium e não recebe Secrets.
+
+I01–I04 estão cobertos por `browser/interface.test.js`: todos os períodos;
+detalhes A/B, expansão, Escape e retorno de foco; quatro vistas, hash desconhecido,
+interseção credor/busca e cancelamento do debounce; vazio, limpeza e download real
+do CSV filtrado com BOM e CRLF. A suíte também cobre link de salto, Tab, foco
+visível, seleção de período pelo teclado e rolagem horizontal da tabela.
+
+Foram reproduzidos e corrigidos:
+
+- O rótulo visualmente oculto da tabela excedia a largura da página (622 px em
+  viewport de 390 px). O contêiner agora delimita seu posicionamento, preservando
+  a rolagem da tabela e o nome acessível.
+- Em Acordos com texto ampliado, o botão de exportação encolhia e seu texto gerava
+  transbordamento. O cabeçalho permite quebra e o botão conserva sua largura.
+- A região viva anunciava seis débitos em uma vista com quatro acordos. Agora
+  anuncia acordos ou compromissos/período conforme o conteúdo apresentado.
+
+As quatro vistas e os detalhes passaram nas larguras 1440, 768, 390 e 320 px.
+Capturas de confirmação estão em `.tmp/interaction-audit/after-*.png`; desktop,
+390 px e Acordos com texto ampliado foram inspecionados visualmente. São
+artefatos locais, não arquivos necessários para executar a suíte.
+
+**Limites:** texto a 200% foi simulado alterando a fonte raiz de 16 para 32 px em
+viewport de 768 px; não equivale a zoom nativo. Não houve avaliação com
+NVDA/JAWS/VoiceOver ou dispositivo móvel físico. O teste da região viva confirma
+seu texto e semântica, não a fala de tecnologia assistiva. Contraste não foi
+recalculado nesta rodada; as medições abaixo são históricas. Os testes HTTP
+verificam o servidor Node local, não os cabeçalhos da hospedagem Pages.
+
+## Plano e evidências históricos
+
+Plano definido na etapa `qa-senior` em 19/09/2026. As limitações abaixo descrevem aquela etapa; consulte o estado atual acima para a validação posterior em navegador.
 
 ## Impacto
 

@@ -75,7 +75,16 @@ function render(announce = true) {
   document.querySelector('#export').disabled = rows.length === 0;
   content.innerHTML = { overview: renderOverview, debts: renderDebts, agreements: renderAgreements, deadlines: renderDeadlines }[state.view](rows);
   closeDetail(false);
-  if (announce) status.textContent = `${view.title}. ${countLabel(rows.length, 'débito encontrado', 'débitos encontrados')}.`;
+  if (announce) {
+    if (state.view === 'deadlines') {
+      status.textContent = `${document.querySelector('#deadlines-title').textContent}. Período: ${document.querySelector('#period').selectedOptions[0].textContent}.`;
+    } else {
+      const result = state.view === 'agreements'
+        ? countLabel(rows.filter((row) => row.agreement).length, 'acordo encontrado', 'acordos encontrados')
+        : countLabel(rows.length, 'débito encontrado', 'débitos encontrados');
+      status.textContent = `${view.title}. ${result}.`;
+    }
+  }
 }
 
 function showDetail(id, trigger) {
@@ -147,7 +156,6 @@ content.addEventListener('change', (event) => {
     state.period = event.target.value;
     render();
     document.querySelector('#period').focus();
-    status.textContent = `${document.querySelector('#deadlines-title').textContent}. Período: ${document.querySelector('#period').selectedOptions[0].textContent}.`;
   }
 });
 detail.addEventListener('click', (event) => { if (event.target.closest('#close-detail')) closeDetail(); });

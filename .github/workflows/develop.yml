@@ -36,5 +36,5 @@ jobs:
       issue_number: ${{ github.event.issue.number }}
       provider: openai
     secrets:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       TECHTOGS_UTILITIES_SSH_KEY: ${{ secrets.TECHTOGS_UTILITIES_SSH_KEY }}

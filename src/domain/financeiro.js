@@ -1,6 +1,6 @@
 // Modulo financeiro do Debito (Issue #17).
 // Codifica as decisoes dos socios registradas no card de origem:
-// - obrigatorios: valor original, valor atualizado e data do vencimento original;
+// - campos cadastrais opcionais, conforme a ultima resposta de Luis na Issue #17;
 // - formas de pagamento aceitas: boleto, pix, cartao, transferencia, cheque, permuta, dinheiro;
 // - status de parcela: a-vencer, paga, vencida, cancelada;
 // - saldo devedor calculado automaticamente;
@@ -44,7 +44,7 @@ function arredondar(valor) {
 }
 
 function dataCalendarioValida(valor) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(valor)) {
+  if (typeof valor !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(valor)) {
     return false;
   }
 
@@ -67,21 +67,15 @@ function validarCadastroFinanceiro({
 } = {}) {
   const erros = [];
 
-  if (!informado(valorOriginal)) {
-    erros.push("valor-original-obrigatorio");
-  } else if (!valorMonetarioValido(valorOriginal)) {
+  if (informado(valorOriginal) && !valorMonetarioValido(valorOriginal)) {
     erros.push("valor-original-invalido");
   }
 
-  if (!informado(valorAtualizado)) {
-    erros.push("valor-atualizado-obrigatorio");
-  } else if (!valorMonetarioValido(valorAtualizado)) {
+  if (informado(valorAtualizado) && !valorMonetarioValido(valorAtualizado)) {
     erros.push("valor-atualizado-invalido");
   }
 
-  if (!temTexto(dataVencimentoOriginal)) {
-    erros.push("data-vencimento-original-obrigatoria");
-  } else if (!dataCalendarioValida(dataVencimentoOriginal)) {
+  if (informado(dataVencimentoOriginal) && !dataCalendarioValida(dataVencimentoOriginal)) {
     erros.push("data-vencimento-original-invalida");
   }
 

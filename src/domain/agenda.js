@@ -74,7 +74,7 @@ function gerarParcelas({
 } = {}) {
   const erros = [];
 
-  if (!Number.isInteger(valorTotalEmCentavos) || valorTotalEmCentavos <= 0) {
+  if (!Number.isSafeInteger(valorTotalEmCentavos) || valorTotalEmCentavos <= 0) {
     erros.push("valor-total-invalido");
   }
 

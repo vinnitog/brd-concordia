@@ -5,6 +5,15 @@ Documento de referencia versionado. Atende ao checklist do card:
 levantar escopo de custos, estimar esforco tecnico, analisar viabilidade e
 registrar recomendacao.
 
+Reconciliado em 09/10/2026 com `PROJECT_CONTEXT.md`, o codigo e as Issues
+[#3](https://github.com/vinnitog/brd-concordia/issues/3),
+[#4](https://github.com/vinnitog/brd-concordia/issues/4),
+[#14](https://github.com/vinnitog/brd-concordia/issues/14) e
+[#17](https://github.com/vinnitog/brd-concordia/issues/17).
+As faixas de esforco e custos abaixo sao estimativas historicas, sem nova
+cotacao, pesquisa de precos ou compromisso de prazo. Nao representam trabalho
+restante medido. O total da tabela foi corrigido apenas pela soma de suas linhas.
+
 > Este documento e uma recomendacao tecnica, nao uma aprovacao financeira.
 > Valores de dinheiro e prazo aparecem como faixas e cenarios, com premissas
 > marcadas como "a confirmar". Cabe aos socios fixar orcamento e prazo finais.
@@ -14,15 +23,18 @@ registrar recomendacao.
 - **Escopo analisado:** todas as funcionalidades ja definidas em
   `PROJECT_CONTEXT.md` (confirmacao dos socios no card: "todas que passamos").
 - **Tipo de viabilidade:** tecnica e comercial (confirmacao dos socios: "ambos").
-- **Recomendacao:** o projeto e **viavel** na stack escolhida
-  (React + Vite + Supabase), desde que entregue **por fases**, comecando por um
-  MVP de gestao de debitos/acordos e agenda de vencimentos. A IA Concordia deve
-  entrar em fase posterior por ter o maior custo variavel e o maior grau de
-  incerteza.
-- **Esforco total estimado (escopo completo):** faixa de **26 a 40 semanas-dev**
-  (ver secao 4), sensivel ao tamanho da equipe e ao nivel de acabamento visual.
-- **Custo:** dominado por horas de desenvolvimento; custo de infraestrutura e
-  baixo no inicio (ver secao 5). O unico custo recorrente relevante e a IA.
+- **Estado atual:** Node.js e biblioteca padrao, politicas puras e demonstracao
+  HTML/CSS/JavaScript com dados ficticios. A demonstracao esta publicada no
+  [GitHub Pages](https://vinnitog.github.io/brd-concordia/); nao ha autenticacao,
+  banco de dados nem integracao de IA real.
+- **Recomendacao historica:** evoluir por fases. React + Vite + Supabase e
+  apenas uma hipotese futura, sujeita a requisitos e comparacao de alternativas;
+  nao e a stack atual nem uma decisao de contratacao.
+- **Esforco historico (escopo completo):** a soma das linhas da secao 4 e
+  **28 a 43 semanas-dev**, corrigindo o total anterior de 26 a 40. Essa correcao
+  aritmetica nao reestima a entrega atual.
+- **Custo:** ainda depende de equipe, operacao e volume; nao ha evidencia para
+  afirmar que IA sera o unico custo recorrente relevante.
 
 ## 2. Escopo Considerado
 
@@ -53,12 +65,12 @@ melhorias do BRD Assistant e a agenda generica de salas de reuniao.
   (campos em branco). Por isso o custo e apresentado em cenarios; o numero final
   depende dessa definicao e do valor-hora praticado, que **nao** e arbitrado
   aqui.
-- **Stack:** React + Vite + Supabase, conforme decisao registrada. A revisao
-  obrigatoria de stack (secao 6) confirma que ela atende ao escopo.
-- **Autenticacao e banco:** providos pelo Supabase (reduz esforco inicial de
-  auth/DB), incluindo controle multiusuario com papeis.
-- **Sem integracoes externas** nesta fase (confirmado no contexto); Integra
-  entra apenas como referencia visual/funcional.
+- **Stack atual:** Node.js com biblioteca padrao e interface estatica. A
+  hipotese React + Vite + Supabase nao autoriza migracao de backend.
+- **Autenticacao e banco:** planejados; nao implementados. As estimativas
+  historicas que citam Supabase sao cenarios condicionais.
+- **Hospedagem:** GitHub Pages autorizado em 24/09/2026 para a demonstracao
+  publica. Sem integracoes operacionais; Integra e referencia visual/funcional.
 - **Pendencia de marca:** a assinatura das mensagens do Concordia
   ("BRD Pactum" vs "BRD Concordia") segue por confirmar e afeta apenas texto de
   template, nao arquitetura.
@@ -68,6 +80,8 @@ melhorias do BRD Assistant e a agenda generica de salas de reuniao.
 Esforco em **semanas-dev** (uma semana-dev = uma pessoa trabalhando uma semana).
 Faixas cobrem do enxuto (reuso de componentes, acabamento simples) ao completo
 (validacoes, estados de erro, acabamento visual maior).
+Valores mantidos da analise historica; nao foram recalculados com o progresso
+posterior. A linha Supabase descreve uma hipotese, nao a implementacao atual.
 
 | Modulo | Complexidade | Esforco (semanas-dev) |
 |---|---|---|
@@ -83,7 +97,7 @@ Faixas cobrem do enxuto (reuso de componentes, acabamento simples) ao completo
 | Dashboard (filtros + graficos) | Media-Alta | 2 - 3 |
 | Financeiro e atualizacao monetaria | Media | 2 - 3 |
 | IA Concordia | Muito Alta | 4 - 6 |
-| **Total** | | **26 - 40** |
+| **Total aritmetico das faixas historicas** | | **28 - 43** |
 
 Observacoes:
 - A **fundacao** deve vir primeiro; todos os modulos dependem dela.
@@ -95,8 +109,8 @@ Observacoes:
 
 ## 5. Escopo de Custos
 
-O custo do projeto e dominado pelo **esforco de desenvolvimento** (horas);
-infraestrutura inicial e barata.
+O levantamento historico considerou desenvolvimento, infraestrutura e uso de
+IA. O peso relativo depende das premissas de operacao ainda nao medidas.
 
 ### 5.1 Custo de desenvolvimento (principal)
 
@@ -110,14 +124,20 @@ calculo para quando o valor for definido:
   ~22 a 34 semanas-dev.
 - Cenario **Completo + IA madura:** ~26 a 40 semanas-dev.
 
+Esses tres cenarios tambem sao historicos e nao foram reestimados. A faixa do
+ultimo nao coincide com a soma da tabela; nao usa-la como compromisso de entrega.
+
 ### 5.2 Custo de infraestrutura recorrente
 
-- **Supabase:** plano gratuito cobre desenvolvimento e piloto; plano pago
-  (faixa de dezenas de USD/mes, a confirmar no ato da contratacao) quando crescer
-  volume de dados/usuarios e necessidade de backups.
-- **Hospedagem do front (ex.: Vercel/Netlify):** faixa gratuita atende inicio.
-- **Dominio + e-mail transacional (se cobranca sair por e-mail):** custo baixo,
-  a confirmar conforme canal escolhido.
+- **Banco/autenticacao futuros:** fornecedor, plano, limites, backups e custo
+  devem ser cotados quando houver requisitos. Supabase nao esta contratado por
+  esta demonstracao; as referencias anteriores a planos gratuitos/pagos nao
+  sao precos ou limites atuais verificados.
+- **Hospedagem atual:** GitHub Pages publica somente `public/`, com dados
+  ficticios. Nao ha necessidade comprovada de outro provedor nesta etapa.
+- **Dominio e transporte de mensagens:** custos ainda nao cotados. A Issue #14
+  ja cita e-mail, SMS, WhatsApp e telegrama; falta definir a implementacao e
+  operacao desses canais, sem autorizar envios automaticos.
 
 ### 5.3 Custo variavel de IA (Concordia)
 
@@ -129,23 +149,25 @@ calculo para quando o valor for definido:
 
 ## 6. Viabilidade Tecnica
 
-**Conclusao: viavel.**
+**Conclusao atual: o scaffold e a demonstracao sao executaveis; a viabilidade
+do sistema completo continua condicionada as premissas de produto e operacao.**
 
-- A stack **React + Vite + Supabase** cobre todo o escopo: telas com estado
-  (React), auth/multiusuario e persistencia (Supabase), sem backend proprio no
-  inicio. Isso reduz custo e tempo ate a primeira entrega.
+- A stack atual entrega consulta demonstrativa e testes de dominio sem
+  dependencias externas. Autenticacao, persistencia e multiusuario exigem uma
+  decisao futura proporcional; nao se conclui que uma stack hipotetica cobre
+  todo o escopo sem validar seus requisitos.
 - Riscos tecnicos concentram-se em **regras financeiras** (atualizacao
   monetaria, encargos, saldos, parcelas) e na **IA** (qualidade de extracao).
   Ambos sao contornaveis: as regras financeiras sao deterministicas e testaveis;
   a IA pode comecar como apoio (sugestao revisada por humano) antes de qualquer
   automacao critica.
-- **Quando revisitar a stack:** se surgir necessidade de logica de servidor
-  complexa (calculos pesados, jobs agendados, regras que nao devem viver no
-  cliente), avaliar Supabase Edge Functions antes de introduzir backend proprio.
+- **Quando revisitar a stack:** antes de implementar persistencia, autenticacao
+  ou integracoes reais, comparar alternativas e registrar as decisoes conforme
+  `PROJECT_CONTEXT.md`. Nenhum backend e introduzido nesta auditoria.
 
 ## 7. Viabilidade Comercial / Mercado
 
-**Conclusao: favoravel, com uso interno como primeira validacao.**
+**Hipotese historica: favoravel, sujeita a validacao do uso interno.**
 
 - **Publico e dor claros:** advogados e equipe interna do BRD que hoje lidam com
   cobranca/recuperacao. O produto substitui controle disperso (planilhas,
@@ -154,9 +176,8 @@ calculo para quando o valor for definido:
 - **Diferencial:** a IA Concordia (extracao de dados de documentos, resumo de
   casos, sugestao de mensagens) e o que distingue de um CRM/cobranca generico.
 - **Caminho de mercado:** provado o ganho interno, o mesmo produto pode ser
-  oferecido a outros escritorios/credores (modelo SaaS multiusuario ja suportado
-  pela stack). Isso deve ser tratado como fase posterior, nao como requisito da
-  v1.
+  oferecido a outros escritorios/credores. SaaS multiusuario nao e capacidade
+  atual; depende de validacao e decisao posterior.
 - **Riscos comerciais:** custo variavel da IA sobre a margem; sensibilidade de
   dados juridicos/financeiros (LGPD) exige cuidado com acesso, trilha de
   auditoria e retencao desde o inicio.
@@ -174,7 +195,8 @@ calculo para quando o valor for definido:
 
 ## 9. Recomendacao
 
-1. **Aprovar** o inicio do desenvolvimento na stack atual.
+1. **Preservar** o scaffold e a demonstracao existentes; nao interpretar esta
+   analise historica como aprovacao de infraestrutura futura.
 2. **Entregar por fases**, comecando pelo MVP (fundacao, cadastros,
    debitos/acordos, financeiro basico, agenda, dashboard minimo) — nucleo de
    valor com menor incerteza.
@@ -184,8 +206,8 @@ calculo para quando o valor for definido:
    bloqueios para esta analise, mas sao para o planejamento executivo):
    - prazo esperado e recursos dedicados;
    - orcamento maximo / valor-hora praticado;
-   - canal da cobranca (somente no sistema, e-mail, etc.), que afeta custo de
-     e-mail transacional;
+   - operacao e fornecedores dos canais ja citados na Issue #14, que afetam
+     custos; a geracao de rascunhos nao autoriza envio externo;
    - assinatura correta das mensagens do Concordia.
 
 ## 10. Proximos Passos
@@ -193,6 +215,13 @@ calculo para quando o valor for definido:
 - Registrar esta recomendacao (este documento) como fonte versionada.
 - Levar ao ciclo dos socios as definicoes da secao 9.4 para fechar cronograma e
   custo.
-- Iniciar o MVP na proxima rodada de desenvolvimento seguindo o workflow
-  obrigatorio (senior-dev -> ui-ux-expert -> code-reviewer -> qa-senior ->
-  qa-automate).
+- Continuar por lotes verificaveis, confrontando as pendencias com codigo e
+  evidencias atuais. A interface e as politicas ja existem; o antigo bloqueio
+  por ausencia total de app nao descreve mais o projeto.
+- Financeiro: a ultima resposta dos socios na Issue #17 torna os campos de
+  cadastro opcionais; aprovacao do pagamento e comprovantes condicionais
+  permanecem regras de operacao. Indices/taxas e datas especificas de atualizacao
+  ainda precisam de detalhamento para automatizar encargos.
+- Judicial: campos opcionais e quatro tipos de acao ja estao implementados.
+  O impacto da suspensao em calculos/relatorios segue sem especificacao na
+  Issue #3; nao introduzir efeito financeiro ou ajuizamento automatico.
