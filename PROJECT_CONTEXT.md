@@ -118,6 +118,8 @@ instalado pelo Playwright, ou Edge local via `BROWSER_CHANNEL=msedge`.
 
 Em 10/10/2026, os três TTF DM Sans completos receberam derivados WOFF2 locais, sem subsetting ou mudança de glifos/métricas/brand, preservando OFL e fallback TTF. O tooling Python fixado é opcional e separado do runtime: os WOFF2 versionados são servidos diretamente, sem novo build. A prova de fidelidade, reprodução e economia de 55,8% dos bytes está em `docs/font-delivery-2026-10-10.md`. Os dois formatadores Intl da demonstração são reutilizados com as mesmas opções, sem alterar centavos/UTC ou regras financeiras.
 
+O segundo lote de QA confirma fallback automático TTF sob falha sintética de WOFF2, com consulta/foco e métricas preservados: 199 testes Node e 15 Edge aprovados, sem mudança de produto. A referência de assets e limitações estão em `docs/qa-font-fallback-2026-10-10.md`; avaliação assistiva e zoom nativo continuam pendentes.
+
 Antes da primeira feature real de interface, persistencia ou autenticacao, o `senior-dev` deve comparar alternativas e registrar a decisao proporcional ao custo de reversao.
 
 Se houver front-end, `ui-ux-expert` deve validar impacto visual e UX.
