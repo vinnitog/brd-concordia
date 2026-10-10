@@ -115,6 +115,48 @@ test('fontes: WOFF2 preserva larguras e caixas de texto dos TTF originais no nav
   });
 });
 
+test('fontes: fallback TTF mantém os três pesos e a consulta quando WOFF2 não pode ser decodificado', async () => {
+  await withPage(async page => {
+    const metrics = () => page.evaluate(() => {
+      const sample = 'BRD Concordia · São José · ÀÉÍÓÚâêôãõÇ · R$ 1.234,56';
+      const canvas = document.createElement('canvas').getContext('2d');
+      return [400, 500, 700].map(weight => {
+        canvas.font = `${weight} 32px "DM Sans"`;
+        return canvas.measureText(sample).width;
+      });
+    });
+    const originalWidths = await metrics();
+    await page.route('**/assets/*.woff2', route => route.fulfill({
+      status: 200, contentType: 'font/woff2', body: 'invalid-font-fixture',
+    }));
+    await page.reload();
+    await page.locator('#content table').waitFor();
+    const fallback = await page.evaluate(async () => {
+      await Promise.all([400, 500, 700].map(weight => document.fonts.load(`${weight} 16px "DM Sans"`)));
+      await document.fonts.ready;
+      return {
+        faces: [...document.fonts].map(face => ({ weight: face.weight, status: face.status })),
+        resources: performance.getEntriesByType('resource').filter(entry => /\.ttf$/.test(new URL(entry.name).pathname))
+          .map(entry => ({ path: new URL(entry.name).pathname, bytes: entry.encodedBodySize })),
+      };
+    });
+    assert.deepEqual(fallback.faces.map(face => face.weight).sort(), ['400', '500', '700']);
+    assert.ok(fallback.faces.every(face => face.status === 'loaded'));
+    assert.deepEqual(fallback.resources.map(resource => resource.path).sort(),
+      ['/assets/DMSans-Bold.ttf', '/assets/DMSans-Medium.ttf', '/assets/DMSans-Regular.ttf']);
+    assert.equal(fallback.resources.reduce((total, resource) => total + resource.bytes, 0), 168992);
+    assert.deepEqual(await metrics(), originalWidths, 'Fallback mantém os avanços dos três pesos.');
+    await page.locator('nav').getByRole('link', { name: 'Débitos', exact: true }).click();
+    await title(page, 'Débitos');
+    await page.getByLabel('Credor', { exact: true }).selectOption('aurora');
+    await rowCount(page, 2);
+    await page.getByRole('button', { name: 'Ver débito de Horizonte Comercial', exact: true }).click();
+    await focused(page, '#detail-title');
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('#detail').isHidden(), true);
+  });
+});
+
 async function rowCount(page, expected) {
   await page.waitForFunction((count) => document.querySelectorAll('#content tbody tr').length === count, expected);
 }
