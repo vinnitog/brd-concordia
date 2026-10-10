@@ -57,6 +57,8 @@ test('preview HTTP: serves local scripts, styles, font, logo and favicon with ma
     ['app.js', 'text/javascript; charset=utf-8'], ['model.js', 'text/javascript; charset=utf-8'],
     ['data.js', 'text/javascript; charset=utf-8'], ['styles.css', 'text/css; charset=utf-8'],
     ['assets/DMSans-Regular.ttf', 'font/ttf'], ['assets/brd-logo-on-dark.png', 'image/png'],
+    ['assets/DMSans-Regular.woff2', 'font/woff2'], ['assets/DMSans-Medium.woff2', 'font/woff2'],
+    ['assets/DMSans-Bold.woff2', 'font/woff2'],
     ['assets/concordia-favicon.svg', 'image/svg+xml'],
   ]) {
     const response = await request(`/${file}?version=demo`);
@@ -67,7 +69,7 @@ test('preview HTTP: serves local scripts, styles, font, logo and favicon with ma
 });
 
 test('preview HTTP: HEAD preserves GET metadata and sends no content', async () => {
-  for (const url of ['/', '/app.js', '/assets/brd-logo-on-dark.png', '/assets/concordia-favicon.svg']) {
+  for (const url of ['/', '/app.js', '/assets/brd-logo-on-dark.png', '/assets/concordia-favicon.svg', '/assets/DMSans-Regular.woff2']) {
     const get = await request(url);
     const head = await request(url, 'HEAD');
     assert.equal(head.status, get.status);

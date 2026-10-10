@@ -1,5 +1,9 @@
 # QA da demonstração local
 
+## Fontes locais — 10/10/2026
+
+O lote de [fontes WOFF2](font-delivery-2026-10-10.md) passou em 199 testes Node e 14 Edge headless (os 12 abaixo mais duas verificações de carga/bytes e equivalência de métricas/reflow com os TTF). Os três arquivos originais permanecem intactos. O payload das três fontes passou de 168.992 para 74.720 bytes (-55,8%); largura/altura do texto e a identidade visual foram preservadas nas provas. Zoom nativo, tecnologia assistiva e hospedagem Pages continuam sujeitos aos limites descritos abaixo.
+
 ## Estado atual — 09/10/2026
 
 Esta revisão substitui as pendências de interação das seções históricas abaixo.

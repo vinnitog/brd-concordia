@@ -59,6 +59,62 @@ async function title(page, expected) {
   assert.equal(await page.title(), `${expected} · BRD Concordia`);
 }
 
+test('fontes: DM Sans local usa três WOFF2, sem baixar TTF, com bytes menores', async () => {
+  const names = ['DMSans-Regular', 'DMSans-Medium', 'DMSans-Bold'];
+  const originalBytes = (await Promise.all(names.map(name => readFile(`${__dirname}/../public/assets/${name}.ttf`))))
+    .reduce((total, font) => total + font.length, 0);
+  const compressedBytes = (await Promise.all(names.map(name => readFile(`${__dirname}/../public/assets/${name}.woff2`))))
+    .reduce((total, font) => total + font.length, 0);
+  await withPage(async page => {
+    const loaded = await page.evaluate(async () => {
+      await Promise.all([400, 500, 700].map(weight => document.fonts.load(`${weight} 16px "DM Sans"`)));
+      return {
+        faces: [...document.fonts].filter(face => face.family.replaceAll('"', '') === 'DM Sans').map(face => ({ weight: face.weight, status: face.status })),
+        resources: performance.getEntriesByType('resource').filter(entry => /\.(?:woff2|ttf)$/.test(new URL(entry.name).pathname))
+          .map(entry => ({ name: new URL(entry.name).pathname, bytes: entry.encodedBodySize })),
+      };
+    });
+    assert.deepEqual(loaded.faces.map(face => face.weight).sort(), ['400', '500', '700']);
+    assert.ok(loaded.faces.every(face => face.status === 'loaded'), 'Os três pesos devem estar carregados.');
+    assert.equal(loaded.resources.length, 3);
+    assert.ok(loaded.resources.every(resource => resource.name.endsWith('.woff2')), 'TTF é apenas fallback, sem download duplicado.');
+    assert.equal(loaded.resources.reduce((total, resource) => total + resource.bytes, 0), compressedBytes);
+    assert.ok(compressedBytes < originalBytes * 0.5, 'A conversão deve economizar mais da metade do payload original.');
+  });
+});
+
+test('fontes: WOFF2 preserva larguras e caixas de texto dos TTF originais no navegador', async () => {
+  await withPage(async page => {
+    const metrics = await page.evaluate(async () => {
+      const variants = [[400, 'Regular'], [500, 'Medium'], [700, 'Bold']];
+      const sample = 'BRD Concordia · Débitos · Acordos · São José · ÀÉÍÓÚâêôãõÇ · R$ 1.234,56';
+      const results = [];
+      for (const [weight, variant] of variants) {
+        const original = new FontFace('DM Sans original', `url(./assets/DMSans-${variant}.ttf)`, { weight: String(weight) });
+        document.fonts.add(await original.load());
+        const canvas = document.createElement('canvas').getContext('2d');
+        canvas.font = `${weight} 32px "DM Sans"`;
+        const compressedWidth = canvas.measureText(sample).width;
+        canvas.font = `${weight} 32px "DM Sans original"`;
+        const originalWidth = canvas.measureText(sample).width;
+        const element = document.createElement('div');
+        Object.assign(element.style, { position: 'absolute', visibility: 'hidden', width: '300px', fontSize: '32px', fontWeight: String(weight), fontFamily: 'DM Sans' });
+        element.textContent = sample; document.body.append(element);
+        const compressedHeight = element.getBoundingClientRect().height;
+        element.style.fontFamily = 'DM Sans original';
+        const originalHeight = element.getBoundingClientRect().height;
+        element.remove();
+        results.push({ weight, compressedWidth, originalWidth, compressedHeight, originalHeight });
+      }
+      return results;
+    });
+    for (const metric of metrics) {
+      assert.equal(metric.compressedWidth, metric.originalWidth, `Avanço do peso ${metric.weight}`);
+      assert.equal(metric.compressedHeight, metric.originalHeight, `Reflow do peso ${metric.weight}`);
+    }
+  });
+});
+
 async function rowCount(page, expected) {
   await page.waitForFunction((count) => document.querySelectorAll('#content tbody tr').length === count, expected);
 }

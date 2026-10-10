@@ -1,7 +1,9 @@
 import { REFERENCE_DATE, creditors, debts, agreements, installments, manualDeadlines } from './data.js';
 
-export const money = (cents) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(cents / 100);
-export const date = (iso) => new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(new Date(`${iso}T12:00:00Z`));
+const currencyFormatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+const dateFormatter = new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' });
+export const money = (cents) => currencyFormatter.format(cents / 100);
+export const date = (iso) => dateFormatter.format(new Date(`${iso}T12:00:00Z`));
 export const daysFromReference = (iso) => Math.round((Date.parse(`${iso}T00:00:00Z`) - Date.parse(`${REFERENCE_DATE}T00:00:00Z`)) / 86400000);
 export const normalize = (value) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 
