@@ -50,7 +50,7 @@ async function checkResourceGraph(documentUrl, deploymentBase) {
     }
   }
 
-  for (const extension of ['.html', '.css', '.js', '.ttf', '.png', '.svg']) {
+  for (const extension of ['.html', '.css', '.js', '.ttf', '.woff2', '.png', '.svg']) {
     assert.ok(fileTypes.has(extension), `The real resource graph must include ${extension} files`);
   }
   assert.ok(visited.has(new URL('model.js', deploymentBase).pathname), 'Application imports must reach the model');
