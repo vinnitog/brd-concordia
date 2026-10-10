@@ -6,7 +6,7 @@ const read = name => fs.readFileSync(path.join(__dirname, '../.github/workflows'
 
 test('development automation uses the shared OpenAI contract and queues issue runs', () => {
   const workflow = read('develop.yml');
-  assert.match(workflow, /uses: vinnitog\/brd-ci\/\.github\/workflows\/develop\.yml@main/);
+  assert.match(workflow, /uses: vinnitog\/brd-ci\/\.github\/workflows\/develop\.yml@42feac9abdaac2e7eeae199237b5425a1204d8b6/);
   assert.match(workflow, /provider: openai/);
   assert.match(workflow, /types: \[labeled\]/);
   assert.match(workflow, /github\.event\.label\.name == 'trello-auto'/);
@@ -25,7 +25,7 @@ test('automation explicitly scopes utilities and Trello credentials to their cal
     }
     assert.doesNotMatch(workflow, /secrets: inherit|id-token:/, file);
   }
-  assert.match(read('review.yml'), /uses: vinnitog\/brd-ci\/\.github\/workflows\/review\.yml@main/);
+  assert.match(read('review.yml'), /uses: vinnitog\/brd-ci\/\.github\/workflows\/review\.yml@42feac9abdaac2e7eeae199237b5425a1204d8b6/);
   assert.match(read('review.yml'), /branches: \[develop\]/);
   assert.match(read('review.yml'), /if: github\.event\.pull_request\.head\.repo\.full_name == github\.repository/);
 });
