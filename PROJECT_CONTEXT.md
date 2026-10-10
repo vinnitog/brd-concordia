@@ -122,6 +122,8 @@ O segundo lote de QA confirma fallback automático TTF sob falha sintética de W
 
 O terceiro lote confirma 10/10 respostas Pages idênticas aos blobs publicados e cache de 600s. O logo institucional recebeu PNG lossless com URL de hash: 32.201 bytes a menos (8,1%), mantendo matriz original, todos os pixels RGBA, dimensões e DPI. Render imediato e canvas/teclado têm provas Edge desktop/mobile; não se alega menor memória ou decode. Evidências e verificação posterior em `docs/qa-logo-publicacao-2026-10-10.md`.
 
+A etapa final usa derivados responsivos PNG440×119/880×239, mantendo matriz e lote3. Bytes17558/37117 em vez367577, superfícies RGBA nominais muito menores; sem claim de decode/memória total/Web Vitals. Resize altera pixels, com comparação visual registrada, alpha/geometria/legibilidade preservados e200Node+17Edge. `docs/qa-logo-responsivo-2026-10-10.md` registra reprodução, limites assistivos e verificação depois do deploy.
+
 Antes da primeira feature real de interface, persistencia ou autenticacao, o `senior-dev` deve comparar alternativas e registrar a decisao proporcional ao custo de reversao.
 
 Se houver front-end, `ui-ux-expert` deve validar impacto visual e UX.

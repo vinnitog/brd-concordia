@@ -58,6 +58,8 @@ test('preview HTTP: serves local scripts, styles, font, logo and favicon with ma
     ['data.js', 'text/javascript; charset=utf-8'], ['styles.css', 'text/css; charset=utf-8'],
     ['assets/DMSans-Regular.ttf', 'font/ttf'], ['assets/brd-logo-on-dark.png', 'image/png'],
     ['assets/brd-logo-on-dark.3da21e7384ec.png', 'image/png'],
+    ['assets/brd-logo-440.e4a543951f97.png', 'image/png'],
+    ['assets/brd-logo-880.07d53b693c9e.png', 'image/png'],
     ['assets/DMSans-Regular.woff2', 'font/woff2'], ['assets/DMSans-Medium.woff2', 'font/woff2'],
     ['assets/DMSans-Bold.woff2', 'font/woff2'],
     ['assets/concordia-favicon.svg', 'image/svg+xml'],

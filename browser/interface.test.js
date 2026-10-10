@@ -60,7 +60,7 @@ async function title(page, expected) {
 }
 
 for (const [width, height, logoWidth, logoHeight, deviceScaleFactor] of [[1440, 1000, 110, 30, 1], [390, 844, 81, 22, 2]]) {
-  test(`logo: PNG lossless preserva render e foco em ${width}px/DPR${deviceScaleFactor}`, async () => {
+  test(`logo: PNG responsivo preserva marca, geometria e foco em ${width}px/DPR${deviceScaleFactor}`, async () => {
     await withPage(async page => {
       const logo = page.locator('.brand img');
       await logo.evaluate(image => image.decode());
@@ -69,36 +69,37 @@ for (const [width, height, logoWidth, logoHeight, deviceScaleFactor] of [[1440, 
       assert.equal(before.width, logoWidth); assert.equal(before.height, logoHeight);
       const initial = await page.evaluate(() => ({
         selected: document.querySelector('.brand img').currentSrc,
-        resources: performance.getEntriesByType('resource').filter(entry => new URL(entry.name).pathname.includes('brd-logo-on-dark'))
+        resources: performance.getEntriesByType('resource').filter(entry => new URL(entry.name).pathname.includes('brd-logo-'))
           .map(entry => ({ name: new URL(entry.name).pathname, bytes: entry.encodedBodySize })),
       }));
-      assert.ok(initial.selected.endsWith('brd-logo-on-dark.3da21e7384ec.png'));
-      assert.equal(initial.resources.length, 1, 'Only the compact asset loads on the normal page.');
-      assert.equal(initial.resources[0].bytes, 367577);
-      const optimizedScreenshot = await logo.screenshot();
+      const expectedAsset = deviceScaleFactor === 1 ? 'brd-logo-440.e4a543951f97.png' : 'brd-logo-880.07d53b693c9e.png';
+      assert.ok(initial.selected.endsWith(expectedAsset));
+      assert.equal(initial.resources.length, 1, 'Only the selected derivative loads on the normal page.');
+      assert.equal(initial.resources[0].bytes, deviceScaleFactor === 1 ? 17558 : 37117);
       const comparisons = await page.evaluate(async () => {
         const selected = document.querySelector('.brand img');
         const original = new Image(); original.src = new URL('./assets/brd-logo-on-dark.png', location.href); await original.decode();
         return [1, 2, 4].map(scale => {
           const first = document.createElement('canvas'), second = document.createElement('canvas');
           first.width = second.width = 110 * scale; first.height = second.height = 30 * scale;
+          for (const canvas of [first, second]) {
+            const context = canvas.getContext('2d');
+            context.fillStyle = '#17141b'; context.fillRect(0, 0, canvas.width, canvas.height);
+          }
           first.getContext('2d').drawImage(selected, 0, 0, first.width, first.height);
           second.getContext('2d').drawImage(original, 0, 0, second.width, second.height);
           const one = first.getContext('2d').getImageData(0, 0, first.width, first.height).data;
           const two = second.getContext('2d').getImageData(0, 0, second.width, second.height).data;
-          let different = 0, maxDelta = 0, totalDelta = 0;
+          let different = 0, maxDelta = 0, totalDelta = 0, squaredDelta = 0;
           for (let index = 0; index < one.length; index++) {
             const delta = Math.abs(one[index] - two[index]);
-            if (delta) different++; maxDelta = Math.max(maxDelta, delta); totalDelta += delta;
+            if (delta) different++; maxDelta = Math.max(maxDelta, delta); totalDelta += delta; squaredDelta += delta * delta;
           }
-          return { scale, different, maxDelta, meanDelta: totalDelta / one.length };
+          return { scale, different, maxDelta, meanDelta: totalDelta / one.length, rmsDelta: Math.sqrt(squaredDelta / one.length) };
         });
       });
-      assert.ok(comparisons.every(result => result.different === 0), JSON.stringify(comparisons));
-      await logo.evaluate(image => { image.src = './assets/brd-logo-on-dark.png'; });
-      await logo.evaluate(image => image.decode());
+      assert.ok(comparisons.every(result => result.meanDelta < 8 && result.rmsDelta < 20), JSON.stringify(comparisons));
       assert.deepEqual(await logo.boundingBox(), before);
-      assert.ok((await logo.screenshot()).equals(optimizedScreenshot), 'Real page PNG screenshots must match, without tolerances.');
       assert.equal(await logo.getAttribute('alt'), 'BRD');
       const brand = page.getByRole('link', { name: 'BRD Concordia — visão geral' });
       await brand.focus(); assert.equal(await brand.evaluate(element => document.activeElement === element), true);
