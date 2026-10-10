@@ -31,7 +31,7 @@ jobs:
     # agente aplica `necessita-revisao`, o evento `labeled` re-dispararia e o concurrency
     # cancelaria o run do proprio agente.
     if: github.event.label.name == 'trello-auto'
-    uses: vinnitog/brd-ci/.github/workflows/develop.yml@main
+    uses: vinnitog/brd-ci/.github/workflows/develop.yml@42feac9abdaac2e7eeae199237b5425a1204d8b6
     with:
       issue_number: ${{ github.event.issue.number }}
       provider: openai

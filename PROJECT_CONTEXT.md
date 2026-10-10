@@ -124,6 +124,8 @@ O terceiro lote confirma 10/10 respostas Pages idênticas aos blobs publicados e
 
 A etapa final usa derivados responsivos PNG440×119/880×239, mantendo matriz e lote3. Bytes17558/37117 em vez367577, superfícies RGBA nominais muito menores; sem claim de decode/memória total/Web Vitals. Resize altera pixels, com comparação visual registrada, alpha/geometria/legibilidade preservados e200Node+17Edge. `docs/qa-logo-responsivo-2026-10-10.md` registra reprodução, limites assistivos e verificação depois do deploy.
 
+Automação develop/review fixa brd-ci no SHA42feac9abdaac2e7eeae199237b5425a1204d8b6 em vez da referência mutávelmain, preservando contratos e secrets. Actionlint+3regressões aprovados sem execução de modelos/workflows externos. Limites em `docs/qa-ci-pin-2026-10-10.md`.
+
 Antes da primeira feature real de interface, persistencia ou autenticacao, o `senior-dev` deve comparar alternativas e registrar a decisao proporcional ao custo de reversao.
 
 Se houver front-end, `ui-ux-expert` deve validar impacto visual e UX.
